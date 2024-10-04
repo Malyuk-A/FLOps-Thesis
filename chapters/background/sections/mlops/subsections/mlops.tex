@@ -1,0 +1,53 @@
+\subsection{MLOps}
+
+MLOps is a young discipline that uses many best practices and techniques from DevOps and applies them to ML.
+Most DevOps techniques are applicable and beneficial for ML.
+Further considerations and tooling are required to support specialized ML requirements.
+ML differs from pure software development because it requires deep knowledge with different focal points, such as math and data science.
+In addition, training, replicating, or understanding an ML model and its code requires extensive and usually untracked background knowledge.
+This includes dependencies, environments, used training data, and whether the model is production-ready.
+Additionally, a model only supports specific input and output values of certain types.
+These unique requirements distinguish MLOps from conventional DevOps.
+
+Inspecting the processes and challenges of a typical modern enterprise ML workflow demonstrates the need for MLOps.
+An exemplary company wants to develop a new ML-based feature to satisfy customer needs.
+Firstly, managers develop ideas for utilizing ML to solve these needs.
+These ideas get evaluated, accessed, and distilled into formal requirements.
+ML solutions require data for training and evaluation.
+The company starts gathering suitable data by scouting for data sources and providers.
+It collects and stores the found data in a custom data lake.
+Data engineers can now start preparing this data for training.
+Data preprocessing includes various steps, such as cleaning the data by removing outliers, wrong data samples, and undefined values.
+Other steps transform the data to make it more suitable for training.
+This includes applying normalization and standardization to slim down the feature space to reduce the curse of dimensionality.
+Other steps involve data analysis and visualization to find insightful patterns and ensure that the available data is sound and useful.
+These data preprocessing and data acquisition steps are an iterative process.
+With this data, ML engineers can start designing ML models.
+
+ML model training and deployment are resource- and time-consuming steps.
+First model iterations are rarely ideal.
+To reach optimality, models require multiple train and test cycles with different architectures, configurations of layers, and hyperparameters.
+Just deploying a model is insufficient.
+Models need to work as intended for expected and unexpected use cases.
+The model performance can degrade over time.
+This can occur if the model is allowed to change after the initial training and deployment phase.
+Performance can also worsen for frozen models if circumstances change, such as the evolution of client needs and requests.
+Therefore, deployed model instances and their inference serving quality need monitoring.
+In case of bad performance, the model needs to be retrained or replaced with a better alternative.
+Such an improved version needs to complete most of the discussed steps again before redeployment.
+This workflow combines steps from business, management, data/ml/software engineering, and operations.
+Usually, in larger organizations, each step is handled by a dedicated team of experts who require working closely together.
+This exemplary workflow demonstrates that ML code and trained model alone cannot provide value in production environments.
+Enterprise ML requires various supporting disciplines and techniques to be usable, including versioning and infrastructure management.
+Due to these different iterative steps and stages, ML is a prime target for DevOps techniques.
+
+MLOps is currently heavily underutilized, which slows down progress in ML enterprises.
+Many trained ML models are not deployed on production systems to provide real value.
+In 2020, only 14\% of trained enterprise ML models were deployed to production in less than a week \cite{algorithmia_state_of_enterprise_ml}.
+Getting an ML model to run on production environments requires entirely different skill sets, which many pure ML professionals, researchers, and hobbyists lack.
+Many individuals who perform ML lack training and industry experience as software engineers or developers.
+They might be unaware of DevOps practices or that ML can greatly benefit from them.
+To bring more awareness to MLOps, Kreuzberger et al. wrote a foundational paper \cite{paper:mlops} that provides an overview of MLOps and the current state of enterprise ML.
+They propose the first attempts at definitions and best practices for MLOps, including recommended architectures, tools, and workflows.
+They conclude that the field of ML is too fixated on academia and developing better ML models instead of optimizing tangible ML in production.
+Their verdict mirrors and reinforces the findings from section \ref{subsection:fl_research} regarding similar gaps in FL research.

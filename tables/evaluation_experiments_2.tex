@@ -1,0 +1,56 @@
+\begin{changemargin}{-2.75cm}{0cm}
+    \centering
+    \begin{tabular}{|M{0.35cm}|M{2cm}||m{5.5cm}|c|M{1.4cm}|c|c|c|c|M{0.9cm}|}
+        \hline
+            \textbf{ID} & \textbf{Experiment} & \textbf{Rationale} & \textbf{Setup} & \textbf{Data} & \textbf{ML} & \textbf{T+L} & \textbf{HFL} & \textbf{B} & \textbf{P} \\
+        \hline
+            6 &
+            Simple HFL &
+            Same as (1) but uses HFL.
+            Verifies that HFL works in a controlled environment on a single machine with a single cluster.
+            The base case for HFL.
+            If this case does not work no other HFL should work.
+            &
+            Monolith &
+            MNIST &
+            Sklearn &
+            Small &
+            \cellcolor{blue!15} Yes &
+            No &
+            AMD
+        \\
+        \hline
+            7 &
+            Simple Multi-Cluster &
+            Same as (1) but on the the multi-cluster setup.
+            Verifies that the base case works on the other setup.
+            If it should not work no other experiments make sense on that setup.
+            &
+            \cellcolor{blue!15} Multi-Cluster &
+            MNIST &
+            Sklearn &
+            Small &
+            No &
+            No &
+            AMD
+        \\
+        \hline
+            8 &
+            % Simple HFL on Multi-Cluster &
+            HFL on Multi-Cluster &
+            Same as (7) but using HFL.
+            Verifies that real clustered HFL works as intended on multiple clusters.
+            &
+            \cellcolor{blue!15} Multi-Cluster &
+            MNIST &
+            Sklearn &
+            Small &
+            \cellcolor{blue!15} Yes &
+            No &
+            AMD
+        \\
+        \hline
+    \end{tabular}
+    \captionof{table}{FLOps Evaluation Experiments II} 
+    \label{table:chosen_experiments_part_2}
+\end{changemargin}

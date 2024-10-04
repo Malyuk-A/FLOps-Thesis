@@ -1,0 +1,73 @@
+\begin{changemargin}{-2cm}{0cm}
+    \begin{tabular}{|c||m{0.4\paperwidth}|m{0.4\paperwidth}|}
+        \hline
+            ID & Contributions & Limitations \& Future Work \\
+        \hline
+            \cite{paper:refl_resource_efficient_fl}
+            &
+            A novel selection and staleness-aware aggregation strategy.
+            Analysis of resource wastage and the impact of stragglers.
+            A smart participation selection based on learner availability.
+            &
+            Privacy or security were not considered.
+            Evaluations are based on classic datasets (MNIST, CIFAR-10), which do not reflect real non-IID data.
+            Only homogeneous resources were assumed.
+            Use of a simple linear regression model for availability prediction.
+            More sophisticated alternatives exist.
+            Factors such as battery level, bandwidth, and user preferences should also be considered for availability prediction.
+        \\
+        \hline
+            \cite{paper:cluster_based_secure_aggregation_for_fl}
+            &
+            A novel cluster-based secure aggregation strategy for diverse nodes.
+            Clustering based on processing score \& GPS information/latency leads to better throughput and reduces false-positive dropouts.
+            A new additive sharing-based masking scheme that is robust against dropouts.
+            &
+            All participants are assumed to be honest.
+            Malicious users were not considered.
+            The aggregator might become a bottleneck, which can be resolved via HFL (with cluster heads).
+            Image classification was the only evaluated ML task.
+        \\
+        \hline
+            \cite{paper:privacy_preserving_deep_fl_for_coop_hierarchical_caching_in_fog_computing}
+            &
+            An FL caching scheme including novel algorithms and architecture.
+            Utilization of an AI training model that considers user history.
+            &
+            A convergence analysis was not provided.
+            For further security and privacy improvements, blockchain-empowered FL should be investigated.
+        \\
+        \hline
+            \cite{paper:model_pretraining_and_initialization_for_fl}
+            &
+            Analysis of the impact of pre-training ML models for FL initialization compared to the common random approach.
+            Findings show pre-trained model superiority.
+            &
+            It is challenging to get a pre-trained model if the necessary data is not available or private.
+            Using pre-trained models can lead to biases.
+            Only a specific (warm-start) initialization strategy was considered.
+        \\
+        \hline
+            \cite{paper:decentralized_edge_intelligence_dynamic_resource_allocation_framework_hfl}
+            &
+            A novel incentive/resource-based allocation schema that utilizes game theory.
+            Learners with more data are more valuable and they can compete for higher participation rewards.
+            Multiple model owners compete for cluster heads with the most data.
+            &
+            The effects of social networks and their impact on worker's cluster selection decisions should be researched.
+            Malicious workers were not considered.
+        \\
+        \hline
+            \cite{paper:fedat_high_performance_communication_efficient_fl_with_asynch_tiers}
+            &
+            Synergy of asynchronous and synchronous FL via asynchronous tiers, which is able to handle stragglers.
+            &
+            The tiers all update the server individually.
+            Further improvements are possible via HFL with intermediate cluster heads to do the aggregation.
+            Additional security could be applied at these cluster heads.
+        \\
+        \hline
+    \end{tabular}
+    \captionof{table}{FL Papers considered for FLOps - Part I} 
+    \label{table:fl_research_table_1}
+\end{changemargin}

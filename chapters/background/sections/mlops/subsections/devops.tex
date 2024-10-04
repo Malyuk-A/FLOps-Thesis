@@ -1,0 +1,43 @@
+
+\subsection{DevOps}
+
+The history of software development shows an evolution from static and isolated to dynamic and intertwined workflows.
+Older methods like the waterfall model split up the development and operations tasks and involved individuals.
+Software was first developed by one team and then operated by another.
+There was a massive increase in modern requirements for flexibility and the ability to change.
+Developmental and operational tasks now form an interconnected infinite loop.
+For example, a company develops the first version of a software product in-house.
+They build distributable software artifacts based on their source code for distribution among clients.
+These artifacts might be container images or executable binaries.
+They publish these artifacts to online registries and roll live services out in the cloud.
+Users enjoy this product and request further features.
+The loop starts anew.
+The new features lead to unexpected bugs.
+The loop starts again, and so on.
+A software loop is only as fast as its slowest step.
+
+In today's world, software development loops are rarely linear sets of steps.
+Such loops are running in parallel at different stages several times per day.
+This concurrency is especially noticeable in projects that divide software into multiple decoupled parts.
+For example, in micro-service architectures, one service might be buggy and need fixing while another receives a feature update.
+These dynamic and strong dependencies require developmental and operational tasks to work tightly together.
+This coupling also applies to IT professionals who must cooperate and understand each other's areas well.
+This combined effort has become its own broad disciple called DevOps.
+
+The synergy between development and operations created new techniques, tools, and professions.
+This combination includes various tasks such as building, deploying, testing, and monitoring.
+Automation is one core activity in this connected discipline because repetitive manual labor is an inefficient and expensive bottleneck.
+Prominent tools include Ansible and Gitlab-CI/CD.
+DevOps is a very broad discipline without concrete borders.
+Building artifacts or container images, orchestration, or knowledge sharing can all be considered part of DevOps.
+This notion makes Git, Docker, and Kubernetes the primary tools in this field.
+
+An essential concept in DevOps is CI/CD, which stands for continuous integration, continuous delivery, and deployment.
+CI/CD focused on automating this software loop via custom pipelines.
+A DevOps pipeline is comparable to an assembly line in a factory.
+A software product needs to pass several connected stages with multiple steps.
+These stages can include testing, building, releasing, and deployment.
+
+DevOps as a term was first mentioned around 2009 \cite{paper:mlops}.
+This field is still very active and rapidly evolving.
+Unfortunately, many other disciplines are not taking inspiration from or taking advantage of DevOps.

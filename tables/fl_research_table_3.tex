@@ -1,0 +1,74 @@
+\begin{changemargin}{-2cm}{0cm} 
+    \begin{tabular}{|c||m{0.4\paperwidth}|m{0.4\paperwidth}|}
+        \hline
+            ID & Contributions & Limitations Future Work \\
+        \hline
+            \cite{paper:hfl_with_privacy}
+            &
+            Analysis of HFL benefits for security.
+            A novel secure aggregation method and hierarchical DP for HFL.
+            &
+            The number of (online) clients per zone has to be small.
+            Further privacy improvements should be investigated.
+        \\
+        \hline
+            \cite{paper:model_pruning_for_edge_fl}
+            &
+            Introduction of distributed adaptive FL model pruning.
+            &
+            Privacy and security were not considered.
+            Further optimizations are possible, primarily focused on GPUs.
+        \\
+        \hline
+            \cite{paper:rethinking_architecture_design_in_fl_for_diverse_data}
+            &
+            Analysis of the use of transformers in FL compared to other architectures.
+            Findings show that transformers are excellent and should be preferred for FL.
+            &
+            Further investigations are required on how transformers behave with other, latest FL algorithms and privacy/security schemas.
+        \\
+        \hline
+            \cite{paper:edgefl_framework}
+            &
+            A scalable edge-only (serverless) FL framework.
+            It utilizes synchronous training and promises rapid integration, prototyping, and deployment.
+            &
+            Planned improvements for this framework include
+            resource optimizations like model compression and quantization and
+            adaptive aggregation strategies based on network conditions, resources, and data diversity.
+            The framework assumes P2P without addressing diverse network conditions.
+            It does not consider security or privacy.
+            The evaluation only checked image classification tasks.
+        \\
+        \hline
+            \cite{hpfl_over_massive_mobile_edge_computing_networks}
+            & 
+            This paper is likely the first to combine PFL with HFL in a three-tiered structure.
+            It proves mathematically that its approach works and converges.
+            This work includes many interesting insights regarding HPFL.
+            &
+            -
+        \\
+        \hline
+            \cite{paper:adaptive_fl_for_resource_constrained_edge}
+            &
+            Analysis of the effects of different global/local update frequencies.
+            A new algorithm to determine global aggregation frequency instead of using the common static one.
+            &
+            Diverse resource usage should be investigated.
+        \\
+
+        \hline
+            \cite{paper:fl_inference_anytime_anywhere}
+            &
+            A combination of FL with transfer-learning on Transformers.
+            A parameter efficient (PE) learning method to adapt pre-trained Transformer Foundation Models (FMs) in FL.
+            A novel PE adapter that modulates all pre-trained Transformers layers, enabling flexible early predictions.
+            &
+            -
+        \\
+        \hline
+    \end{tabular}
+    \captionof{table}{FL Papers considered for FLOps - Part III} 
+    \label{table:fl_research_table_3}
+\end{changemargin}

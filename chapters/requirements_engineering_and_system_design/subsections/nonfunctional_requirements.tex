@@ -1,0 +1,89 @@
+\subsection{Nonfunctional Requirements}
+Nonfunctional Requirements (NFR) define how the proposed system should work.
+NFRs include constraints that the system must fulfill.
+The following NFRs are based on the established FURPS+ categories, as seen in \cite{book:bruegge}.
+These NFRs mainly represent groups of requirements instead of intricate individual requirements to reduce bloat.
+
+\begin{itemize}
+    \item [NFR-1] {\textbf{Usability}}:
+        FLOps should automate and streamline FL, MLOps, and orchestration processes.
+        Thus, it should allow users without specific experience in these domains to perform FL and benefit from these technologies.
+        FLOps should accelerate FL development and evaluation.
+        Therefore, it should save time for FL experts by automating away redundant manual tasks.
+        \begin{itemize}
+            \item [NFR-1.1] \textbf{Effortless FL Participation}:
+                Users should be able to participate and initiate FL projects by simply providing a link to their (non-FL) ML code.
+            \item [NFR-1.2] \textbf{Prepared Reusable Components}:
+                FLOps should provide ready-made, extendable, multi-platform components to automate development and evaluation workflows.
+            \item [NFR-1.3] \textbf{GUI}:
+                FLOps' GUI should follow established conventions for usability.
+                Upholding these conventions is essential to ensure intuitive information visualization and easy navigation.
+            \item [NFR-1.4] \textbf{CLI}:
+                Its CLI should provide a clear and complete set of commands to interact with the system.
+                Each key user functionality should have a corresponding command, such as creation, inspection, and termination.
+                The CLI's monitoring capabilities should be comprehensive and close to real-time (less than 5 seconds delay) to provide users with timely information (Performance Requirement).
+                The CLI should provide users with thorough, supportive instructions and help messages to improve onboarding and general use.
+                It should be possible to start and stop FLOps FL projects with a single request each.
+        \end{itemize}
+    \item [NFR-2] {\textbf{Supportability}}:
+        \begin{itemize}
+        \item [NFR-2.1] {\textbf{Maintainability}}:
+            FLOps should make extending and modifying it straightforward and comfortable to ensure long-time developers and occasional contributors can work on it efficiently.
+            The target group should include FL researchers who might have little experience in writing high-quality code.
+            \begin{itemize}
+                \item [NFR-2.1.1] {\textbf{Codebase}}:
+                    Its codebase should follow industry best practices for readability and maintainability.
+                    Its system design should be modular and extensible, allowing for easy updates and additions of new features or integrations with other technologies.
+                    Therefore, FLOps should uphold high-quality code standards and use state-of-the-art libraries and frameworks.
+                \item [NFR-2.1.2] {\textbf{Quality Enforcement}}:
+                    FLOps should enforce formatters, linters, and automatic CI pipelines to verify high code quality.
+            \end{itemize}
+        \item [NFR-2.2] {\textbf{Portability}}:
+            \begin{itemize}
+                \item [NFR-2.2.1] {\textbf{ARM \& AMD Support}}:
+                    FLOps should support AMD devices, which are primarily used for development, and ARM devices, which are mainly used in edge devices.
+                \item [NFR-2.2.2] {\textbf{Generic Interfaces}}:
+                    To reduce vendor-lock-in and hardcode, FLOps should prioritize generic interfaces.
+                    Therefore, It should be able to integrate with existing or future tools and frameworks.
+            \end{itemize}
+        \end{itemize}
+    \item [NFR-3] {\textbf{Performance}}:
+        \begin{itemize}
+        \item [NFR-3.1] {\textbf{Scalability}}:
+            FLOps should handle dynamic workload increases without significant degradation in performance.
+            It should be able to scale across different hardware and network conditions.
+            FLOps should be able to support a large number of client devices and training rounds.
+            It should be able to manage and orchestrate multiple FL tasks simultaneously.
+        \item [NFR-3.2] {\textbf{Availability}}:
+            FLOps should provide reliable FL training by implementing robust error handling and recovery mechanisms, ensuring that the system can recover gracefully from failures during training or deployment.
+            FLOps should ensure high availability and fault tolerance during FL training and orchestration.
+            \begin{itemize}
+                \item [NFR-3.2.1] {\textbf{Error Handling}}:
+                    FLOps should handle errors gracefully and provide meaningful error messages.
+                    Gracefully means that errors are caught and resolved if possible.
+                    Fatal error should allow the rest of the system to continue working.
+                    Exceptions and error messages should be concise.
+                    They should inform users about the concrete error and its context in a couple of sentences instead of a wall of text or call stacks.
+            \end{itemize}
+        \item [NFR-3.3] {\textbf{Optimized Image Building}}:
+            The system should create containerized images quickly and efficiently.
+            These image-building processes should not burden the control plane or user resources to avoid bottlenecks.
+            They should adhere to best practices for speed and lightness.
+            These images should not contain unnecessary content, such as dependencies, code, or layers, which would bloat their size.
+        \end{itemize}
+    \item [NFR-4] {\textbf{Security}}:
+        The system should ensure secure communication between client devices and the central server.
+        It should protect sensitive data during FL training and deployment.
+        Otherwise, the entire premise of FL gets broken, and legal issues arise.
+    \item [NFR-5] {\textbf{Constraints}}:
+        \begin{itemize}
+            \item [NFR-5.1] {\textbf{Packaging}}:
+                FLOps' components should be able to run on different environments.
+                The automatically built container images should be compatible with dominant technologies like Docker or containerd to maximize coverage and compliance.
+                The built container images should support multiple platforms, at least AMD and ARM.
+            \item [NFR-5.2] {\textbf{Implementation}}:
+                FLOps should not implement all its features and components from the ground up.
+                This is necessary to avoid the risk of subpar quality and optimize development and maintenance time and resources.
+                It should use and benefit from existing state-of-the-art solutions and technologies.
+        \end{itemize}
+\end{itemize}

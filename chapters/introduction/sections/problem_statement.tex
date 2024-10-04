@@ -1,0 +1,30 @@
+\section{Problem Statement}\label{section:problem_statement}
+
+With great access to data comes great responsibility that can be easily exploited.
+Many of the aforementioned machines are personal user devices or belong to companies and organizations that handle customer or internal resources.
+These devices store and handle sensitive private data.
+In classic (large-scale) Machine Learning, data gets sent from client devices to a centralized server, which usually resides in the cloud.
+The collected data is used on the server to train ML models or perform inference serving.
+This approach provides direct access to this sensitive data and the power to trace back its origin, creating a breach of privacy.
+
+Companies, organizations, and governments have created regulations and laws to protect sensitive data and prevent potential misconduct.
+These measures aim to support business and international cooperation while protecting trade secrets.
+However, some laws and regulations prohibit sharing or moving data to other countries or even off-premises.
+Examples include the European Parliament's regulation to protect personal data, the GDPR (General Data Protection Regulation) \cite{eu_regulation}, or the California Consumer Privacy Act (CCPA) \cite{california_consumer_privacy_act}.
+Ignoring and no longer using this large amount of data would heavily limit current workflows and further developments for many data-dependent and data-hungry technologies.
+
+In 2017, a team of Google researchers introduced Federated Learning (FL) as one possible solution to utilize sensitive data while keeping it private \cite{paper:original_fl}.
+In FL, instead of collecting the data on a server and training ML models centralized, the model training occurs directly on the client devices.
+Afterward, the individually trained models get sent to the server, which combines the collected models into a single shared one.
+This so-called global model can then be distributed to the clients again for further training cycles.
+Therefore, FL enables training a shared model on sensitive data while keeping that data secure on the local client devices. 
+
+Most researchers working in the field of FL focus on enhancing existing FL components, strategies, and algorithms or developing novel ways of doing FL.
+There is a noticeable scarcity of work that concentrates on the crucial aspects of the initial setup, deployment, and usability of FL.
+Because FL is a relatively modern technique, it lacks a sophisticated production-grade ecosystem with frameworks and libraries that improve ease of use by automating its setup and execution.
+As a result, contributing to the field of FL or reproducing findings is a task ranging from non-trivial to improbable.
+This is due to the lack of documented steps regarding setup, deployment, management, and execution.
+Instead of using a shared set of bootstrapping tools to make progress on novel work more efficiently, one needs to set up and manage FL from the ground up (\ref{subsection:fl_research}).
+A small set of emerging libraries and frameworks does exist for FL (\ref{subsection:fl_frameworks_and_libraries}).
+Instead of orchestrating FL on real distributed devices, they focus on executing FL algorithms and processes, often via virtual simulations (\ref{subsection:fl_research}). 
+Furthermore, the field of FL lacks more advanced techniques to increase productivity that other domains have already been using for several years, such as modern DevOps or MLOps practices (\ref{section:machine_learning_operations}).

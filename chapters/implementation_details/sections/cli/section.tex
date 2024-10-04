@@ -1,0 +1,40 @@
+\section{CLI}
+
+While developing FLOps, we implemented several different pieces of code to automate tedious, repetitive manual tasks.
+We decided to share and offer these custom auxiliary scripts by combining them into a single CLI tool called OAK CLI \cite{cli_code}.
+We have steadily improved it over this work, which resulted in various features.
+Because of the envisioned rapid changes in the future, we will not discuss concrete technical details but provide a broad overview of its capabilities.
+We decided to discuss this CLI as part of this work because FLOps can be considered DevOps for FL, and DevOps also includes techniques to improve development workflows.
+One way to support users and developers is to help them use the target application more conveniently, for example, via a CLI tool.
+Notably, Oakestra has a custom early-stage work-in-progress GUI/Frontend dashboard application \cite{oakestra_dashboard} and a minimal CLI tool.
+The OAK CLI is independent of both these components and replaced the legacy Oakestra CLI tool.
+
+We were motivated to create this CLI to alleviate the following challenges.
+FLOps does not offer a tool besides the OAK CLI to interact conveniently with its API.
+External tools like Postman are necessary to do so.
+Oakestra components need to be prepared and launched manually.
+Interacting with its API is possible via external tools or its early-stage dashboard.
+We needed to work on several devices while developing FLOps, especially its HFL features.
+Each machine must be appropriately configured and set up to enable Oakestra workloads.
+This setup included installing dependencies such as Docker, Golang, and other custom aliases and scripts to launch, clear, and restart Oakestra components.
+In addition, developing and observing FLOps was heavily bound to the observatory features provided by Oakestra's dashboard application.
+Accessing and working with this dashboard was cumbersome even during local development on a single machine because of repetitive click-based tasks such as mandatory logins.
+We automated this by creating auto-clicker scripts via Selenium.
+Accessing this flaky dashboard on remote devices behind firewalls required even more manual steps, such as code modifications and multiple SSH tunnels.
+We only required the dashboard to get an overview of the deployed application and services and their statuses and logs.
+The OAK CLI satisfies these needs independently, bypassing our need for the dashboard while automating manual steps.
+As a result, this CLI significantly accelerates the development and usage of FLOps and Oakestra.
+
+\input{chapters/implementation_details/sections/cli/subsections/cli_requirements.tex}
+
+\subsection{High Level CLI Details}
+
+The CLI can create, delete, and (un)deploy applications and services.
+It can present current information about available apps and services in different verbosity levels.
+In addition, it allows to inspect latest service logs.
+Users can use the CLI to manage FLOps components, including its manager, database, projects, and tracking server.
+The CLI automates tedious manual tasks such as clearing local images or rebuilding orchestrator components.
+It can install fundamental dependencies such as Docker and Golang.
+The CLI has a customizable config file that allows users to specify their intended use case and filter out unwanted commands.
+It also features experimental commands to run automatic evaluations.
+Detailed descriptions of the CLI commands and options with screenshots are available in the appendix \ref{appendix:cli}.

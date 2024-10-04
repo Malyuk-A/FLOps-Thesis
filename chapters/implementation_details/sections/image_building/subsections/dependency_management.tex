@@ -1,0 +1,107 @@
+\subsection{Dependency Management}
+
+The goal of using containerized images is to avoid the need and struggle to set up and configure machines individually.
+This setup and configuration part is especially crucial for ML workloads.
+Many different ML frameworks and libraries exist and need to cooperate with other software tools.
+These tools cover various aspects of ML, ranging from unsupervised to supervised learning.
+Subfields include clustering, reducing feature spaces, classification, regression, and neural networks.
+Just neural networks as a field represent a multifaceted domain that requires different tools.
+Neural networks span from simple nets with a single hidden layer to deep neural networks, convolutional networks, transformers, and many more.
+Besides targeting different ML disciplines, they can be fine-tuned for specific environments, such as massive supercomputers, end-user work machines, or IoT and edge devices.
+Popular tools include TensorFlow, Keras, PyTorch, and Scikit-learn, which all have different extensions and forked projects.
+Even small basic ML projects can already contain several hundred dependencies.
+All of these tools have different versions and require careful consideration and version management to avoid unexpected side effects and errors.
+
+We elaborated in section \ref{subsection:fl_research} that the relevant literature rarely touches upon the initial device configuration and setup.
+Most authors assume that these dependencies are already properly installed and configured on the devices.
+Many works in FL discuss and propose better ways of selecting and distributing training loads and model parameters (\ref{subsection:fl_research}).
+They also omit the aspects of dependencies.
+Before it is possible to train a model via FL or ML, the device needs to have all the necessary capabilities correctly configured.
+Containers resolve most of these issues, especially for heterogeneous devices and environments.
+These reasons motivated us to develop and include automatic image-build processes.
+
+Conventionally, ML workflows are implemented in Python.
+Therefore, the mentioned dependencies are handled via Python's own package repository, PyPI (Python Package Index).
+These packages are usually installed and managed via Python's package installer pip.
+These standard tools display weaknesses when resolving dependencies in extensive projects.
+It can happen that pip fails to resolve and properly install the dependencies in a compatible way.
+Additionally, because pip is implemented in Python, which is not the fastest programming language, this dependency resolution can take a long time.
+Other tools try to resolve these weak points.
+
+A popular alternative to pip is the Conda suite.
+Conda \cite{docs:conda} is an open-source package and environment manager that is popular with ML and Data engineers.
+It focuses on Python but supports other languages as well.
+Conda provides and enables convenient virtual Python environments and resolves dependencies more successfully and quickly than pip.
+Anaconda \cite{docs:anaconda} is Conda's Python distribution that includes Conda and comes with more than 100 commonly used packages.
+This distribution is heavy-weight and unfit for lightweight, containerized, or CI workflows.
+Miniconda \cite{docs:miniconda} is a minimal Anaconda version that only includes Conda and a small mandatory set of dependencies.
+It is ideal for lightweight environments that should only include necessary (custom) dependencies.
+Conda is also implemented in Python.
+Thus, the dependency resolution process speed remains a bottleneck.
+Mamba \cite{docs:mamba} is a reimplementation of Conda in C++.
+This allows Mamba to resolve dependencies a significantly faster than Conda.
+Similarly to Miniconda, Micromamba \cite{docs:micromamba} is a minimal distribution of Mamba.
+
+Additionally, there is no single unified source for packages or standard for building such packages.
+Various package servers, mirrors, channels, and package builders exist.
+One example is Conda-Forge.
+Furthermore, the structure, build, and publish processes for Python packages have changed vastly over the years.
+Native Python only recently switched to a more homogeneous approach via pyproject.toml files \cite{setuptools_userguide}.
+Previously setup.py and setup.cfg files were used for these purposes.
+In addition, there are other tools like Poetry \cite{docs:poetry} or the very new and lightning-fast uv \cite{uv} manager that is implemented in Rust.
+In conclusion, Python's dependency management ecosystem is vast and complex.
+The newer a tool, the quicker it tends to be, but it also lacks sophisticated maintenance and might not support all necessary packages or versions.
+
+FLOps should support as many projects and dependencies as possible.
+For this reason, FLOps uses miniconda.
+It supports different Python versions, easily resolves and handles dependencies, and is a lightweight solution.
+Conda now also supports multiple different dependency resolvers.
+Since the end of 2023, Conda has been using the libmamba resolver by default, which uses Mamba \cite{docs:conda_libmamba}.
+Therefore, FLOps uses a fast and reliable dependency resolver.
+
+Besides the complexity of Python's dependency landscape, ML dependencies can be huge.
+\begin{figure}[t]
+    \begin{changemargin}{0cm}{0cm}
+        \centering
+        \begin{tabular}{|c||c|c|c|c|}
+            \hline
+                \textbf{Image} & python:3.12.4 & python:3.12.4-slim & anaconda3:latest & miniconda3:latest \\
+            \hline
+                \textbf{Size} & 1.02 GB & 133 MB & 4.5 GB & 611 MB
+            \\
+            \hline
+        \end{tabular}
+        \captionof{table}{Conda Python Image Size Comparison (29.08.2024)} 
+        \label{table:conda_python_comparison}
+    \end{changemargin}
+\end{figure}
+Table \ref{table:conda_python_comparison} shows four pulled images and their sizes.
+All images use Python version 3.12.4.
+The default Python image is one GB in size.
+Its official slim alternative is almost ten times smaller.
+The full anaconda image has 4.5 GB.
+The miniconda image is more than seven times smaller than the full anaconda version but more than five times larger than the slim Python image.
+Note that these are the pulled docker image sizes, not the compressed registry ones.
+(The Conda images are from the official continuumio project.)
+
+Table \ref{table:ml_libs_images_compared} shows a selection of pulled images of popular ML tools.
+All images are the latest official images by the ML tool providers, except scikit-learn.
+These images can vary enormously in size.
+Some of them require several GBs of disk space and bandwidth to pull.
+Any FLOps image built on top of these dependencies will be even larger due to the additional FL and MLOps dependencies.
+
+\begin{figure}[t]
+    \begin{changemargin}{0cm}{0cm}
+        \centering
+        \begin{tabular}{|c||c|c|c|}
+            \hline
+                \textbf{Image} & smizy/scikit-learn-docker & tensorflow/tensorflow & pytorch/pytorch \\
+            \hline
+                \textbf{Size} & 515 MB & 1.86 GB & 7.6 GB
+            \\
+            \hline
+        \end{tabular}
+        \captionof{table}{A selection of popular ML library images and their sizes (29.08.2024)} 
+        \label{table:ml_libs_images_compared}
+    \end{changemargin}
+    \end{figure}

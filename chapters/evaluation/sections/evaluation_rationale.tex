@@ -1,0 +1,62 @@
+
+\section{Rationale}
+
+FLOps is a new system connecting various custom and pre-made components that power a large set of features and functionalities.
+This plethora of interconnected parts enables a large number of possible combinations that each could be evaluated.
+We look at the SLA examples from \ref{subsection:SLAs} and formalize configuration parameters as variables.
+\vspace{5mm}
+\newline
+\textbf{Variables defining a FLOps Project}
+\begin{itemize}
+    \item [R]:
+        The ML Repository.
+        Includes arbitrary complex and different ML code.
+    \item [F]:
+        The ML Model Flavor / Framework.
+    \item [D]:
+        The dataset that is used for training and evaluation.
+    \item [B]:
+        A boolean value indicating if base images should be used to speed up builds during development.
+    \item [P]:
+        The number of supported platforms.
+        Currently FLOps supports two different platforms, which can be used together or in isolation.
+        Thus, P offers three different options.
+    \item [H]:
+        The boolean flag indicating if FLOps should use classic or hierarchical FL.
+    \item [T]:
+        The number of training rounds or cycles.
+    \item [L]:
+        The number of required learners.
+    \item [S]:
+        The underlying setup of devices.
+        We worked with a monolith and multi-cluster setup.
+\end{itemize}
+
+Even if we greatly simplify and assume that all these variables have only two possible assignments, we get an overwhelming number of combinations.
+Each of these variables are independent of each other.
+Therefore, each simplified boolean variable combined results in $ 2^9 = 512$ unique experiments.
+We even omit several additional possible variables, such as running these tests on ARM or AMD devices, including Raspberry PIs, or using GPU workloads.
+We aim for representative results, so every experiment is repeated ten times.
+We call such repeated experiments evaluation cycles.
+Such cycles take half an hour to several hours to complete.
+This long runtime, combined with the total number of possible permutations, makes it infeasible to test every single combination.
+This is a classic case of the curse of dimensionality, where increasing numbers of features result in an exponential increase of their feature space.
+
+We focus on a manageable subset of different experiments that represent comprehensive combinations of these variables to cover a wide range of possible scenarios.
+In addition, FLOps is a foundational new system.
+Thus, we aim to verify and evaluate whether it works rather than how competitive it is against modern benchmarks and state-of-the-art training results.
+We focus on the general workflow and the necessary steps to power such processes instead of optimizing FL training results.
+Tables \ref{table:chosen_experiments_part_1} and \ref{table:chosen_experiments_part_2} depict our selected experiments and our reasons for choosing them.
+The tinted cells highlight the critical changes between experiments.
+Small classic FL experiments use two learners for three training rounds, and large classic FL experiments use four learners with ten learning rounds.
+Small HFL experiments use two learners per cluster for three training rounds and two training cycles.
+In total each learner trains for six rounds.
+We explicitly try to change only singular variables to facilitate comparisons and understand how individual variables impact the whole workflow.
+
+\begin{figure}[p]
+    \input{tables/evaluation_experiments_1.tex}
+\end{figure}
+
+\begin{figure}[H]
+    \input{tables/evaluation_experiments_2.tex}
+\end{figure}

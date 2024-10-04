@@ -1,0 +1,31 @@
+\chapter{Implementation Details}
+
+% \begin{figure}{h}
+
+% \end{figure}
+
+After discussing requirements and simplified system models, this chapter discloses significant details of the implementation that powers FLOps.
+We implemented FLOps mainly in Python.
+Our goal is to use state-of-the-art tools for FLOps.
+We analyzed and compared different open-source libraries and tools.
+
+Table \ref{table:implementation_details_notion_subset} shows a heavily abbreviated subset of our internal comparison.
+We refrain from exploring and discussing our findings to avoid bloating the thesis.
+Especially because this landscape is constantly changing, and better options might exist since our analysis. 
+We carefully considered every dependency that FLOps relies upon.
+The dependency listings are available in the codebase \cite{flops_code}.
+
+\input{tables/implementation_details_notion_subset.tex}
+
+\input{chapters/implementation_details/sections/api_and_slas.tex}
+
+\input{chapters/implementation_details/sections/image_building/section.tex}
+
+\input{chapters/implementation_details/sections/local_data_management/section.tex}
+
+\input{chapters/implementation_details/sections/mlops_via_mlflow/section.tex}
+
+\input{chapters/implementation_details/sections/clustered_hfl.tex}
+
+\input{chapters/implementation_details/sections/cli/section.tex}
+

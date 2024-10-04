@@ -1,0 +1,58 @@
+\section{Experimental Setup}
+
+We evaluated FLOps on two different setups.
+The first setup is a monolithic development machine that hosts all Oakestra and FLOps components.
+\vspace{5mm}
+\newline
+\textbf{Monolithic Setup}
+\begin{itemize}
+    \item [OS]: Debian 12 (bookworm) linux/amd64 (bare metal)
+    \item [CPU]: Intel i7-6700K - 8 cores - 4.2 GHz
+    \item [Memory]: 16 GB
+    \item [Storage]: 470 GB
+\end{itemize}
+
+The second setup is a multi-cluster with three identical virtual machines that are part of our chair's infrastructure.
+We used one machine as a pure control plane that only managed Oakestra's root orchestrator and FLOps management components.
+The other two machines represent separate clusters, each with its own cluster orchestrator and worker node.
+\vspace{5mm}
+\newline
+\textbf{Multi-cluster Setup}
+\begin{itemize}
+    \item [OS]: Ubuntu 20.04.6 LTS linux/amd64
+    \item [CPU]: Intel Xeon E5-2697A v4 - 4 cores - 2.6 GHz 
+    \item [Memory]: 8 GB
+    \item [Storage]: 80 GB
+\end{itemize}
+
+\subsection{Evaluation Procedure}
+
+We extended the OAK CLI to evaluate FLOps automatically.
+We have added several sophisticated Ansible playbooks and roles that the CLI triggers to run workloads on the monolith or multi-cluster setup via SSH.
+These Ansible components heavily utilize other OAK CLI commands to clean up experiments and launch new projects.
+As a side-effect, this automation simulates how real users might interact with the system.
+Before each experiment run, the playbook ensures a clean experiment environment.
+This step includes flushing any legacy experiment CSV files, removing all orchestrated applications and services, clearing containerd image caches, restarting the FLOps management components, and flushing its image registry.
+The playbook starts a new evaluation round once the environment is clean for a new experiment/project.
+At each round, multiple CSV files are generated.
+In addition, it starts custom Python daemon scripts on every device that will scrape system metrics and append them to a CSV file every five seconds.
+Afterward, the playbook requests a specific project configuration that matches one of the selected experiments.
+
+While the project is running, the playbook actively listens for event messages in the FLOps manager logs.
+Any FLOps project's lifetime can be split into stages such as FL-Actors-Image-Build or FL-Training.
+A follow-up stage can only occur if the previous one was successful.
+Once the playbook spots a message indicating a transition to the next stage, it will write this change to a file.
+The Python daemons actively scan this file and include its stage content in the CSV files.
+Consequently, the CSV files that include the system metrics also include the respective project stage and timestamp.
+At the end of each project, the playbook repeats its cleanup steps and starts the next evaluation round.
+Once all evaluation rounds are finished, the playbook terminates and prints out the sums of individual step runtimes. 
+
+One CSV file per evaluation run gets stored and numbered on the local device.
+In the multi-cluster case, the playbook copies all CSV files from all devices onto the caller device.
+At the end of each experiment cycle, a folder of CSV files representing the recorded results is available.
+To visualize these results, we created several Python scripts to parse, combine, pre-process, and visualize the information stored in the CSV files.
+We use Seaborn and Matplotlib for this endeavor.
+As a result, we have uniform, minimalistic Jupyter notebooks that represent and plot the recorded information.
+All the code is available here \cite{cli_code}.
+Note that we hardcoded several aspects of this code to our concrete use case.
+Expanding and making this evaluation code more reusable is a prime candidate for future work.

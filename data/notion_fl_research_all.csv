@@ -1,0 +1,102 @@
+﻿Notes,FL FW used,ML FW used,Paper / Resource,IMO Importance,Categories,TRGs: Problems/Challenges,Contributions - Details,Contributions,Limitations & Future Work - Details,Limitations / Future Work,Results
+,"FedScale, Generalist",Pytorch,REFL: Resource-Efficient Federated Learning (https://www.notion.so/REFL-Resource-Efficient-Federated-Learning-7499587ea8884bba96ca642aa80a69d8?pvs=21),great,"aggregation, performance, selection","low data diversity, node diversity, resource wastage","novel selection & aggregation
+- highlight resource wastage & importance of stragglers (generality)
+- smart participation selection (based on unavailability)
+- staleness-aware aggregation","aggregation algo, proofs / convergence analysis, selection algo","- does not yet consider privacy or security
+- evaluation based on classic datasets (MNIST, CIFAR-10) - might not reflect real non-IID data
+- assumes homogeneous resources
+- uses simple linear regression model for availability prediction - use more sophisticated/better alternatives
+- use more factors for availability prediction like battery level, bandwidth, user preferences","data diversity, more factors, privacy & security, too simple technique","improved model quality, low impact on training time, reduced resource usage"
+,not mentioned / custom,not mentioned / custom,EdgeFL: A Lightweight Decentralized Federated Learning Framework (https://www.notion.so/EdgeFL-A-Lightweight-Decentralized-Federated-Learning-Framework-cfb5a0fc38404e18810681c5b605b02d?pvs=21),good 2 know I guess,"novel structure, performance, proof-of-concept","complexity, customization, ease-of-use, scalability","- scalable edge-only (serverless) FL
+— synchronous training
+— rapid integration, prototyping, deployment",novel architecture/system,"- add resource optimizations like 
+— model compression & quantization
+—- for better communication efficiency on edge
+- explore adaptive aggregation strategies
+— based on network conditions, resources, data diversity 
+- does assume P2P without addressing diverse network conditions
+- no focus on security or privacy (e.g. malicious devices, model stealing, etc.)
+- only image classification was checked","data diversity, further resource optimizations, more ML techniques, network conditions, privacy & security, smarter aggregation","better scalability, faster, improved model quality, user-friendlier"
+,not mentioned / custom,Pytorch,Cluster-Based Secure Aggregation for Federated Learning (https://www.notion.so/Cluster-Based-Secure-Aggregation-for-Federated-Learning-d8e318ffe08541f2aa69803c8edc5f1b?pvs=21),critical / excellent,"clusters/tiers, security/privacy","communication overhead, computational overhead, node diversity, security/privacy","- novel cluster-based secure aggregation strategy for diverse nodes
+— clustering based on processing score & GPS info/latency 
+— better throughput
+— reduces false-positive dropouts
+- novel additive sharing-based masking scheme robust to dropouts","clustering algo, privacy/security scheme, proofs / convergence analysis, secure aggregation algo","- assumes that all participants are honest - not evaluated what happens with evil users
+- server might become a bottleneck - can be resolved by using HFL (with cluster heads)
+- only image classification was checked","more ML techniques, privacy & security","better dropout/straggler handling, better privacy/security, faster, reduced overhead, reduced resource usage"
+,Flower,Pytorch,Federated Learning for Inference at Anytime and Anywhere (https://www.notion.so/Federated-Learning-for-Inference-at-Anytime-and-Anywhere-073ad6329c534365bda8c6d92d907775?pvs=21),moderate / potential,"performance, transformers",investigate X,"- parameter efficient (PE) learning method to adapt pre-trained Transformers FMs in FL
+- novel PE adapter - modulates all layers of pre-trained Transformers
+— flexible early predictions","Transformer focused, learning method, parameter-efficient (transfer)","- 
+(very niche - Fl via transfer-learning on Transformers)","more ML techniques, no theoretical analysis/proof, privacy & security",better non-IID handling
+,not mentioned / custom,not mentioned / custom,Deploying a Federated Learning Based AI Solution in a Hierarchical Edge Architecture (https://www.notion.so/Deploying-a-Federated-Learning-Based-AI-Solution-in-a-Hierarchical-Edge-Architecture-33400b2675d6490abbb1565085bc1683?pvs=21),good 2 know I guess,"hierarchical, proof-of-concept","industry vs research gap, investigate X",- show/deploy FL on hierarchical industry standard - HFL,proof of concept?,"- 
+(proof of concept - that FL works on industry hierarchy)
+(thus very minimal/primitive - what could be investigated: diverse networks, data, resources, proofs)",not specified,proof of concept?
+,FLSim,Pytorch,Where to Begin? On the Impact of Pre-Training and Initialization in Federated Learning (https://www.notion.so/Where-to-Begin-On-the-Impact-of-Pre-Training-and-Initialization-in-Federated-Learning-7d8e77b7db4a4ea8b6e2cd0e1fa9a772?pvs=21),helpful - nice 2 know,"best-practice, performance",investigate X,"- look into init models for FL
+— pretrained vs random ?
+— pretrained (mostly) always better","best-practice, init model","- its hard to get a pre-trained model if the necessary data is privat, not yet available, etc
+- pre-training might lead to bias
+- only considers a specific (warm-start) init strategy","more factors, privacy & security","better non-IID handling, faster, improved model quality, reduced overhead"
+,not mentioned / custom,not mentioned / custom,"Hierarchical Federated Learning with Momentum
+Acceleration in Multi-Tier Networks (https://www.notion.so/Hierarchical-Federated-Learning-with-Momentum-Acceleration-in-Multi-Tier-Networks-0661f83e0b10411989c022921ebd9f80?pvs=21)",great,"aggregation, hierarchical, performance","performance, scalability","- faster & better FL training & aggregation algos
+- hierarchical structure
+- use ML momentum","aggregation algo, learning method, proofs / convergence analysis",- does not really cover/mention security/privacy aspects nor network conditions (as far as I know),"network conditions, privacy & security","better scalability, faster, improved model quality, reduced resource usage"
+,TFF,TensorFlow,Hierarchical Federated Learning with Privacy (https://www.notion.so/Hierarchical-Federated-Learning-with-Privacy-442e2e951d03451589f320d180e74c2b?pvs=21),critical / excellent,"hierarchical, security/privacy","investigate X, security/privacy","- analyse benefits of HFL for security
+- HFL secure aggregation ++
+- hierarchical DP","privacy/security scheme, proofs / convergence analysis, secure aggregation algo","- number of (online) clients per zone has to be small?
+- further privacy amplificactions?
+- further privacy improvements",privacy & security,"better privacy/security, proof of concept?, reduced overhead"
+,not mentioned / custom,"Keras, TensorFlow",Privacy-Preserving Federated Deep Learning for Cooperative Hierarchical Caching in Fog Computing (https://www.notion.so/Privacy-Preserving-Federated-Deep-Learning-for-Cooperative-Hierarchical-Caching-in-Fog-Computing-da931842fe114193840f087da48f49c0?pvs=21),great,"caching, hierarchical, performance","communication overhead, performance, resource wastage, security/privacy","- HFL caching scheme (algos & architecture)
+- with AI training model to consider user history & context ","caching, novel architecture/system","- lack of convergence analysis
+- blockchain-empowered FL to further improve security/privacy","no theoretical analysis/proof, privacy & security","better privacy/security, low impact on training time, reduced resource usage"
+(superset of TiFL - i.e. ~ 2 papers in one),not mentioned / custom,TensorFlow,FedAT: A High-Performance and Communication-Efficient Federated Learning System with Asynchronous Tiers (https://www.notion.so/FedAT-A-High-Performance-and-Communication-Efficient-Federated-Learning-System-with-Asynchronous-Ti-771ca5f82ef149db8a7cb02b9da09552?pvs=21),critical / excellent,"clusters/tiers, novel structure, performance","performance, resource wastage","- usage of tiers
+- synergy of asynch & synch FL
+- straggler handling","aggregation algo, clustering algo, novel architecture/system, proofs / convergence analysis",- AFAIK : the tiers all update the server individually - this could further be improved if we would use HFL with intermedia cluster heads to do the aggregation + there we could apply more security,not specified,"better dropout/straggler handling, better non-IID handling, faster, improved model quality, reduced resource usage"
+,not mentioned / custom,Huggingface,Scaling Federated Learning for Fine-Tuning of Large Language Models (https://www.notion.so/Scaling-Federated-Learning-for-Fine-Tuning-of-Large-Language-Models-29a609ae29ea419fbdd174a70389c5f6?pvs=21),moderate / potential,"best-practice, performance, proof-of-concept, transformers","investigate X, performance, scalability",- studies how LLMs behave in FL when using different #clients,"Transformer focused, best-practice, proof of concept?","- 
+(rather “trivial” experiments - no too new insights)",not specified,proof of concept?
+,not mentioned / custom,TensorFlow,Decentralized Edge Intelligence: A Dynamic Resource Allocation Framework for Hierarchical Federated Learning (https://www.notion.so/Decentralized-Edge-Intelligence-A-Dynamic-Resource-Allocation-Framework-for-Hierarchical-Federated--fd89c016e5b54212b13ccb4fb93647d6?pvs=21),great,"clusters/tiers, hierarchical, novel structure, resource allocation & incentive, selection","complexity, investigate X, resource wastage","- novel incentive & resource allocation schema
+- workers with more data are more valuable can compete for higher participation rewards
+- higher lvl : multiple model owners compete for cluster heads with most data
+- game theory etc used","novel architecture/system, proof of concept?, proofs / convergence analysis, selection algo","- want to consider social network effects & their impact on cluster selection decisions of workers
+- account for existing evil workers","more factors, privacy & security","better scalability, proof of concept?, reduced resource usage"
+,Flower,Generalist,Flower: A Friendly Federated Learning Framework (https://www.notion.so/Flower-A-Friendly-Federated-Learning-Framework-560a18c9232044b6815e7f57465f84fd?pvs=21),critical / excellent,"best-practice, performance","complexity, customization, ease-of-use, industry vs research gap, scalability","- user friendly FL framework
+- stable, language/framework agnostic
+- very scalable
+- very customizable/extendable",,"- because this is an active project/product it cannot catch up rapidly with the latest research
+- i.e. many best latest practices, algos, security features, etc. are not yet part of flower","data diversity, further resource optimizations, more factors, privacy & security","better scalability, reduced overhead, user-friendlier"
+,not mentioned / custom,not mentioned / custom,"Tackling the Objective Inconsistency Problem
+in Heterogeneous Federated Optimization (https://www.notion.so/Tackling-the-Objective-Inconsistency-Problem-in-Heterogeneous-Federated-Optimization-dbc3d9b1931245c79a0d4322ef57e103?pvs=21)",moderate / potential,performance,"low data diversity, node diversity, performance",- eliminate & reason about drift due to different learner speeds,"learning method, proofs / convergence analysis","-
+from my understanding this work does not consider hierarchical structures, clusters/tiers, nor privacy/security",not specified,"better non-IID handling, faster, improved model quality"
+,not mentioned / custom,Pytorch,Model Pruning Enables Efficient Federated Learning on Edge Devices (https://www.notion.so/Model-Pruning-Enables-Efficient-Federated-Learning-on-Edge-Devices-fb0666d0a631499ea8a566a1749cb791?pvs=21),moderate / potential,model resizing,"performance, scalability","- distributed adaptive ML model pruning ","learning method, proofs / convergence analysis","- further optimizations e.g with regards to GPUs
+- AFAIK : privacy/security not mentioned",further resource optimizations,"better scalability, faster, reduced resource usage"
+,not mentioned / custom,not mentioned / custom,Rethinking Architecture Design for Tackling Data Heterogeneity in Federated Learning (https://www.notion.so/Rethinking-Architecture-Design-for-Tackling-Data-Heterogeneity-in-Federated-Learning-9683d7e4fbaf4168baf57b96bcee913c?pvs=21),helpful - nice 2 know,"best-practice, transformers","investigate X, low data diversity, performance",- comparison/investigation of using transformers in FL compared to other architectures,"Transformer focused, best-practice, init model","- 
+- most likely further investigations how transformers behave with other latest algos & privacy/security schemas",not specified,"better non-IID handling, faster, improved model quality"
+,not mentioned / custom,"TensorFlow, not mentioned / custom",Adaptive Federated Learning in Resource Constrained Edge Computing Systems (https://www.notion.so/Adaptive-Federated-Learning-in-Resource-Constrained-Edge-Computing-Systems-3100bdf182ef43b190524e6ef2891c09?pvs=21),moderate / potential,"aggregation, best-practice","investigate X, performance, resource wastage","- investigation of global/local update frequency
+- new algo to determine global aggregation frequency (instead of common static one)","aggregation algo, proofs / convergence analysis","-
+- general investigation into diverse resource usage",not specified,"better non-IID handling, faster, reduced resource usage"
+,not mentioned / custom,not mentioned / custom,Efficient Privacy-Preserving Machine Learning in Hierarchical Distributed System (https://www.notion.so/Efficient-Privacy-Preserving-Machine-Learning-in-Hierarchical-Distributed-System-538edc6cebcc46fab5affe716ffd664a?pvs=21),great,"hierarchical, performance, security/privacy","complexity, computational overhead, low data diversity, performance, security/privacy","- improvement of privacy-preserving ML techniques for hierarchical structures - more efficient
+- multiple data partitionings studied - incl. vertical - non-IID","privacy/security scheme, proof of concept?","-
+from 2019 - many other newer paper talk about HFL security/privacy",not specified,"better non-IID handling, better privacy/security, faster, reduced overhead, reduced resource usage"
+,Generalist,Generalist,Federated Learning - A Comprehensive Overview of Methods and Applications (https://www.notion.so/Federated-Learning-A-Comprehensive-Overview-of-Methods-and-Applications-0092d624e64441ef9937c45fa39ff8f5?pvs=21),critical / excellent,all-rounder,all-rounder,"The only FL book I have stumbled upon so far and I have read several chapter from it and it is great - gives a nice overview of many different FL related things, including personalization (first time I have seen it was there) and datasets to use for FL",all-rounder,Released/version of 2022 - because it is a book it cannot really be cutting edge,,
+first paper I have read that talks about personalization & MoE for FL,not mentioned / custom,not mentioned / custom,Adaptive Expert Models for Personalization in Federated Learning (https://www.notion.so/Adaptive-Expert-Models-for-Personalization-in-Federated-Learning-b4f7d9f6067d4838a6f211f52f69fd14?pvs=21),moderate / potential,"MoE, clusters/tiers, personalization","performance, personalization, resource wastage","- improved existing personalization FL algo that used clustered models (but discarded all but one in the end)
+- use said cluster models as MoE to improve perf","novel architecture/system, personalization",,,
+,not mentioned / custom,Pytorch,Hierarchical Personalized Federated Learning Over Massive Mobile Edge Computing Networks (https://www.notion.so/Hierarchical-Personalized-Federated-Learning-Over-Massive-Mobile-Edge-Computing-Networks-a6f03e73d1f448ea96f900218451434b?pvs=21),critical / excellent,"clusters/tiers, hierarchical, performance, personalization, proof-of-concept","investigate X, personalization, scalability","most likely first paper to combine PFL with HFL in a 3tiered structure 
+- proves mathematically that this works and converges
+- includes many interesting insights regarding the fusion to HPFL","clustering algo, personalization, proof of concept?, proofs / convergence analysis",-,not specified,"better non-IID handling, better scalability, improved model quality, proof of concept?, reduced overhead"
+,,,,,,,,,,,
+,Generalist,Generalist,A Systematic Comparison of Federated Machine Learning Libraries (https://www.notion.so/A-Systematic-Comparison-of-Federated-Machine-Learning-Libraries-d9afc43c7789423ea28670b803d9b244?pvs=21),helpful - nice 2 know,"all-rounder, best-practice","complexity, ease-of-use, industry vs research gap, investigate X",Compares in huge detail different FL frameworks and created a new benchmarking web app for it. (2023!),"all-rounder, best-practice","The frameworks evolve rather quickly, thus if this paper was submitted January 2023 - this is already 1 year+ ago - things might have changed since then
+- only 4 experts were interviewed - all from academia and munich",data diversity,user-friendlier
+,,,LEAF: A Benchmark for Federated Settings (https://www.notion.so/LEAF-A-Benchmark-for-Federated-Settings-a2e97b6d3f8148208a4a540881295ebb?pvs=21),helpful - nice 2 know,"all-rounder, best-practice","complexity, industry vs research gap","Benchmark for Federated Settings, especially FL, with implementations and datasets","all-rounder, best-practice",2019,,
+,,,,,,,,,,,
+,,,"Enabling Edge-based Federated Learning through
+MQTT and OMA Lightweight-M2M (https://www.notion.so/Enabling-Edge-based-Federated-Learning-through-MQTT-and-OMA-Lightweight-M2M-7c8f9bde451145e6b5dcb2b1af2f0733?pvs=21)",critical / excellent,"data protocol, novel structure, proof-of-concept, selection",investigate X,"- novel approch to find and share info between FL server and client regarding client discovery
+- uses MQTT with semantic URIs that represent the properties of the clients (e.g. resources, CPU, etc)","proof of concept?, selection algo","- It is a very short paper and the experiments are emulated and IMO they did not really compare them with other classic or novel approaches, etc.",,
+,"FedML, Localfed",not mentioned / custom,On the feasibility of Federated Learning towards on-demand client deployment at the edge (https://www.notion.so/On-the-feasibility-of-Federated-Learning-towards-on-demand-client-deployment-at-the-edge-631c340569b34e8da4ed0f05c2612ca7?pvs=21),critical / excellent,"deployment & orchestration, proof-of-concept","complexity, ease-of-use, investigate X, scalability","- focus on easily on-the-fly deployment and orchestration of FL (e.g. via docker images)
+- focus on mobility tech (real people 6G devices where they will go next problem)","novel architecture/system, proof of concept?","- use 3 layered architecture
+- one layer (”orchestrators- miniservers”) are selected “naively” i.e. this can be a security risk
+- selecting clients in a “smarter way” was/is still under development","no theoretical analysis/proof, privacy & security, too simple technique","proof of concept?, user-friendlier"
+,not mentioned / custom,"Generalist, not mentioned / custom",Towards Developing a Global Federated Learning Platform for IoT (https://www.notion.so/Towards-Developing-a-Global-Federated-Learning-Platform-for-IoT-b026211259044ff08b1fbcedf1e7e6e4?pvs=21),critical / excellent,"deployment & orchestration, novel structure, proof-of-concept","customization, ease-of-use, industry vs research gap, investigate X","(This is so far the closest work to FLOps. )
+Proof-of-concept prototype of an IoT-FL platform (closed/not-mentioned) source
+”all in one package” - automates & enables FL ","novel architecture/system, proof of concept?","closed/unmentioned-source
+the paper is only 4 pages long
+no further work (at least I could not find it - it also almost did not get cited, etc; 
+works feels a bit rushed - figures are bad, typos, etc.","further resource optimizations, more factors, smarter aggregation, too simple technique","proof of concept?, user-friendlier"

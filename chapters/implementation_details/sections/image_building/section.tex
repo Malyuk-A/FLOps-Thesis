@@ -1,0 +1,19 @@
+\section{Image Building}
+
+From our understanding the automatic image build process that turns user ML code into FL-capable containerized multi-platform images is one of the major novel contributions of this work.
+This process is a non-trivial endeavor requiring advanced understanding and application of various domains.
+This chapter is dedicated to analyzing these required synergies.
+Firstly, it elaborates on the need to build these images and explains related challenges.
+Secondly, it discusses different approaches and their limitations in building images in the given environment.
+Thirdly, this chapter showcases details about internal FLOps image builder processes.
+The last subsection explains how FLOps handles multi-platform image builds.
+
+\input{chapters/implementation_details/sections/image_building/subsections/dependency_management.tex}
+
+\input{chapters/implementation_details/sections/image_building/subsections/image_builders.tex}
+
+\input{chapters/implementation_details/sections/image_building/subsections/flops_image_builder_details.tex}
+
+\input{chapters/implementation_details/sections/image_building/subsections/multi_platform.tex}
+
+

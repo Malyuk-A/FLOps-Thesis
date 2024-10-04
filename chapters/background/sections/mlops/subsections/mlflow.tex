@@ -1,0 +1,115 @@
+\subsection{MLflow}\label{subsection:mlflow}
+
+MLflow \cite{mlflow:homepage} is a one-in-all open-source MLOps platform that enriches and unifies common ML tasks and provides automatic solutions for ML challenges.
+Its first public version (0.2.0) was released in 2018.
+Version 1.0.0 came out in 2019.
+As of this writing, its latest version (2.15.1) was released in August 2024.
+MLflow's repository \cite{mlflow:github} accumulated 18.2k stars, 4.1k forks, and 756 contributors.
+Significant organizations, including Microsoft and Meta, use MLflow.
+MLflow supports various popular ML tools and frameworks, such as Keras, Pytorch, HuggingFace, and more.
+Furthermore, it is flexible for custom user extensions to support specialized functionality and tooling.
+MLflow has a rich and active community and ecosystem.
+This ecosystem includes detailed documentation \cite{mlflow:docs}, code examples \cite{mlflow:examples}, and places for discussion and receiving direct support (Slack).
+A great resource besides the official ones to learn more about MLflow is this online course \cite{mlflow:udemy}.
+MLflow helps users manage their ML workflow loops from conception to re-deployment.
+
+MLflow divides its core features into multiple different interconnected components.
+These components are rather conceptual groupings of functionalities than concrete isolated interfaces.
+The following represents a major selection of critical components.
+\vspace{5mm}
+\newline
+\textbf{Tracking}\newline
+MLflow can track and log ML experiments to help users record and compare their ML results.
+An experiment in MLflow is a set of runs.
+Each run represents a specific execution of a piece of code.
+A run can record various aspects of that execution, such as code version, metrics, or custom tags.
+Users can customize what should be tracked and how often.
+MLflow also offers automatic logging capabilities.
+Popular targets for tracking include parameters ranging from hyperparameters to custom metaparameters.
+The utilized code or training data can also be tracked, as well as metrics, such as accuracy and loss.
+MLflow offers its tracking via various APIs, including Python, Java, and REST.
+The tracking artifacts get recorded in a centralized place.
+By default, these artifacts are recorded in a local directory.
+These tracked records can also be stored and managed by a dedicated local or remote scalable tracking server.
+That way, users can easily share the results they have tracked with others.
+An MLflow tracking server comes with its own sophisticated and feature-rich web-based GUI.
+This GUI allows users to inspect, compare, and manage their recorded findings easily.
+MLflow tracking handles lightweight parameters, except for input data.
+It does not track or record trained models (weights and biases).
+\vspace{5mm}
+\newline
+\textbf{Models}\newline
+MLflow can record and store ML models in uniform and popular formats.
+Popular formats are called "flavors" in MLflow and include pickle formats, python functions, and ML framework-specific solutions.
+Models can be stored together with exemplary input data, ML code, metadata, and a list of necessary dependencies for replication.
+MLflow differentiates between storing lightweight parameters, meta-information, and models.
+Model signatures can also be specified.
+These signatures are similar to function signatures in programming.
+They include the expected input and output types.
+Other tools can utilize such signatures to automatically create the correct Python functions or REST APIs for a model.
+Due to this standardized representation, many other tools can work with these models.
+This uniformity also makes deploying these models more efficient.
+MLflow allows users to deploy models to different environments via various ways, such as local inference servers (REST API), docker containers, and Kubernetes.
+\vspace{5mm}
+\newline
+\textbf{Registry}\newline
+MLflow's model registry is comparable to an interface or API that works with a subset of logged models.
+It is not a dedicated standalone registry, unlike container image registries.
+It does not host complete models.
+This registry enables labeling and versioning for logged models.
+Labeling includes specific information that tells users if the model is currently in development, review, or production-ready.
+Not all logged models are part of the model registry.
+Users can manually or automatically decide if and what models they want to add to the model registry.
+This process is called registering a model.
+Every registered model is also a logged model.
+The benefit of this separation is that models in the registry are carefully selected and managed.
+\vspace{5mm}
+\newline
+\textbf{Projects}\newline
+Projects allow replicating the exact ML environment for development.
+Unlike the tracked pieces of code from the tracking or model components, MLflow projects contain the entire codebase that was used to train a specific model.
+Projects aim to uniformly package ML code for reproducibility and distribution.
+The heart of an MLflow project is its MLproject file.
+It contains all the necessary information regarding dependencies and environments to guarantee identical conditions.
+This file can have multiple entry points, similar to a Docker file.
+These entry points can be used for different use cases, including training or evaluation.
+Other users can quickly start using such projects due to MLflow's project CLI commands.
+A project's entry point can be called by the project CLI.
+MLflow can also invoke a project as part of a dynamically built docker container.
+The image gets built automatically via Docker after running the CLI command.
+The CLI allows running projects that are local, remote, or stored in a git repository.
+MLflow projects have a lot of potential, but they are not yet capable of fully handling robust automatic containerization and dependency management.
+They work fine if run directly on a host machine that supports Docker.
+Most orchestrators expect images and deploy containers.
+It is not yet possible to orchestrate and deploy MLflow projects directly instead of using manually configured images.
+Issues arise when wrapping an MLflow project into a generic image and then internally calling its CLI to build and run the corresponding image.
+MLflow uses Docker directly, which is, in most cases, not possible inside a containerized environment.
+This limitation is represented in the official MLflow examples \cite{mlflow:docker_example}.
+In this example, all necessary dependencies are explicitly mentioned and installed in a custom Dockerfile that needs to be built manually to run the ML experiments.
+This emphasizes that MLflow projects cannot be automatically turned into standalone container images yet.
+\vspace{5mm}
+\newline
+MLflow stores its artifacts in two different data stores.
+The default does not use any dedicated local or remote storage components.
+Instead, everything gets stored locally.
+All lightweight metadata, including metrics, tags, and results, are stored in the backend store.
+A backend store can be a database, a file server, or a cloud service.
+Heavy artifacts like trained models are kept in the artifact store.
+Registered models utilize both stores.
+Their metadata, such as versions and hyperparameters, are kept in the backend store.
+Their corresponding trained model is located in the artifact store.
+
+MLflow supports many optional components that can be arranged in various architectures.
+In the simplest case, everything is stored and located on the local machine, with no need for a dedicated tracking server or data stores.
+More sophisticated structures support shared and distributed workflows and workloads.
+The mentioned components can be gradually added or removed.
+Therefore, MLflow allows flexible and custom solutions.
+For example, the artifact store, backend store, and tracking server can all be deployed on different machines and environments.
+This separation of concerns enables improved scalability and reduces singular points of failure.
+The tracking server can function as a proxy and bridge between machines that perform the ML experiments and the data stores.
+This approach enables centralized security and access control, which simplifies client interactions.
+
+MLflow lacks native support for FL.
+It does not explicitly mention or support FL.
+However, FL can profit from MLflow due to its modular design, that can be customized and applied to FL specific components and environments.
+For that reason, FLOps is using MLflow.

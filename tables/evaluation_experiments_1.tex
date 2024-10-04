@@ -1,0 +1,84 @@
+\begin{changemargin}{-2.75cm}{0cm}
+    \centering
+    \begin{tabular}{|M{0.35cm}|M{2cm}||m{5.5cm}|c|M{1.4cm}|c|c|c|c|M{0.9cm}|}
+        \hline
+            \textbf{ID} & \textbf{Experiment} & \textbf{Rationale} & \textbf{Setup} & \textbf{Data} & \textbf{ML} & \textbf{T+L} & \textbf{HFL} & \textbf{B} & \textbf{P} \\
+        \hline
+            1 &
+            Base Case - Simplest &
+            Represents the base case for comparisons and references.
+            If it does not work nothing else should.
+            Should be as simple and lightweight as possible.
+            &
+            Monolith &
+            MNIST &
+            Sklearn &
+            Small &
+            No &
+            No &
+            AMD
+        \\
+        \hline
+            2 &
+            Simple Large &
+            Same as (1) but with more training rounds and learners.
+            Checks if different, larger project sizes work.
+            Focuses on the impact of project sizes.
+            &
+            Monolith &
+            MNIST &
+            Sklearn &
+            \cellcolor{blue!15} Large &
+            No &
+            No &
+            AMD
+        \\
+        \hline
+            3 &
+            Simple Base-Images &
+            Same as (1) but uses development BaseImages to speed up builds.
+            Verifies that using base images leads to the same end results, thus they are viable option for development.
+            Checks the build acceleration due to BaseImages.
+            &
+            Monolith &
+            MNIST &
+            Sklearn &
+            Small &
+            No &
+            \cellcolor{blue!15} Yes &
+            AMD
+        \\
+        \hline
+            4 &
+            Simple Multi-Platform &
+            Same as (1) but supports multiple target platforms.
+            Verifies that FLOps supports multi-platform images.
+            Checks the impact on build times.
+            &
+            Monolith &
+            MNIST &
+            Sklearn &
+            Small &
+            No &
+            No &
+            \cellcolor{blue!15}  AMD + ARM
+        \\
+        \hline
+            5 &
+            Simple Pytorch &
+            Similar to (1) but uses a different ML repository, framework, and dataset.
+            Verifies that FLOps supports various ML repositories, frameworks, and datasets.
+            &
+            Monolith &
+            \cellcolor{blue!15} CIFAR10 &
+            \cellcolor{blue!15} Pytorch &
+            Small &
+            No &
+            No &
+            AMD
+        \\
+        \hline
+    \end{tabular}
+    \captionof{table}{FLOps Evaluation Experiments I} 
+    \label{table:chosen_experiments_part_1}
+\end{changemargin}

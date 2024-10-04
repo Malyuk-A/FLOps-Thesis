@@ -1,0 +1,34 @@
+\chapter{Requirements Engineering \& System Design}
+
+% The requirements part defines and formalizes the reasons, needs, and problems of a system.
+% It focuses on the application domain, which represents the proposed system and its surrounding environment.
+% Its goal is to explain the new system's workflows, processes, and structural relationships without delving into concrete ways of realizing these goals.
+% It is crucial to understand the basic behavior, reasoning, and environment of the system before working out how to realize these goals in a tangible manner.
+% This part also includes system models, which illustrate how the system works and fulfills the found requirements.
+% System models consist of object models that describe the system's structure, functional models that show its available functionalities, and dynamic models that depict how components interact.
+% The system design explores an existing or proposed solution for these requirements.
+% It is the first and most abstract part of the solution domain.
+% Besides the system design, the solution domain covers how specific objects are designed, considering data structures and algorithms, down to concrete implementation and testing of the codebase. \cite{book:bruegge}
+
+% We combine both into a single chapter because of the following reasons.
+% FLOps is already an implemented system.
+% There is no need to discuss and illustrate significantly simplified possible solutions for the system first and then do the same more concretely for the existing system later.
+% This would lead to models and explanations with many commonalities and redundancies and bloat this work.
+% The existing system satisfies the same requirements and is still explained in a simplified way via abstractions.
+% For very detailed implementation the next chapter and the codebase is available \cite{flops_code}.
+% The system design part directly follows and relies on the requirements engineering part \cite{book:bruegge}.
+% Many aspects are interconnected and can hardly be assigned to one another, especially when discussing an existing system.
+% For example the system design concerns itself how the system handles concurrency, software control, and global resources \cite{book:bruegge}.
+% Usually, these aspects are described via dynamic models, which directly correspond and depend on concepts discussed in the requirements analysis \cite{book:bruegge}.
+% Therefore, both use models to describe how the system works and satisfies the requirements.
+% This chapter covers both aspects where the initial sections cover the application domain and the last ones the solution domain.
+% Intermediate sections feature aspects of both. 
+% As a result this chapter enables flexible discussions logically leading through both domains.
+
+
+
+\input{chapters/requirements_engineering_and_system_design/sections/requirements_elicitation_and_specification.tex}
+
+\input{chapters/requirements_engineering_and_system_design/sections/system_models.tex}
+
+\input{chapters/requirements_engineering_and_system_design/sections/subsystem_decomposition.tex}

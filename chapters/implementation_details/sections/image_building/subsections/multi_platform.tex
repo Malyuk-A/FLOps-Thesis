@@ -1,0 +1,76 @@
+\subsection{Multi-Platform}
+
+This subsection explains how FLOps builds multi-platform images.
+Usually, end users build images only for a single platform.
+Their builder knows their host's architecture and uses it as a target platform.
+When inspecting popular public images, they support multiple target platforms.
+Each image tag can have multiple digests, each representing a different platform.
+For example, the latest Alpine image \cite{alpine_multiplatform_image} supports at least linux/amd64 and linux/arm/v6.
+By default, it is impossible to run images that are intended for different architectures on machines with incompatible host architectures.
+Specific workarounds via emulation exist.
+
+The key of building and referencing images that support multiple platforms are manifests.
+A plain manifest file contains information about a unique image digest.
+This information includes its media type, size, layers, and architecture.
+When an image supports multiple platforms, it has multiple digests, thus one manifest per digest.
+Image indexes were invented to group these different manifests.
+Note that image indexes refer to the OCI standard term \cite{oci_image_index}.
+In Docker, they are called fat manifests or manifest lists \cite{docs:docker_manifest}.
+As a result, different host architectures can use the same image tag and pull their matching digest image.
+This happens because the local builder reads the image index and picks a suitable manifest.
+Examples for manifests are available here \cite{docs:docker_manifest}.
+
+Multi-platform images are a deep topic.
+Because of its rapid development, many different media types, versions, and schemas for manifests exist.
+Build machines need to use the same conventions as their image registries.
+Discussing these details here would lead to bloat.
+Excellent information about this topic is available here \cite{docs:image_manifest_versions_schemas}.
+
+Previously, one had to manually build one image per target architecture on a machine of that architecture, provide the image tag with an architecture suffix, and push it.
+Once all these different images were pushed, an image index had to be created and pushed.
+Nowadays, a convenient solution for building multi-platform images is using docker's buildx builder \cite{docs:docker_buildx}.
+It can build and push multi-platform images concurrently with a single command.
+
+The FLOps image builder does not use docker to build its images (\ref{subsection:image_builders}).
+Buildah also supports building multi-platform images but lacks the convenient new features of docker's buildx.
+From our experience, Buildah lacks sufficient documentation regarding building and pushing multi-platform images.
+We needed to look into its source code, read other sources, and experiment extensively until we made this work.
+
+Another significant requirement for building multi-platform images on a single machine is emulating other architectures.
+Otherwise, only images for the host's architecture can be built.
+It is also possible to cross-compile or use multiple dedicated builder nodes with proper architectures \cite{docs:docker_multiplatform_image_builds}.
+Conventionally, QEMU \cite{docs:quemu} is used to emulate such tasks.
+Docker Desktop includes QEMU for Mac and Windows by default \cite{docs:docker_multiplatform_image_builds}.
+QEMU translates the requested target architecture instructions into ones the host machine can understand.
+Due to FLOps' special circumstances, which involve building complex images in orchestrated, containerd containers on heterogeneous devices, various approaches seem to be available to realize emulation.
+Ideally, the emulator would be part of the builder image, thus avoiding the need to modify or require anything from the worker nodes.
+After many unsuccessful attempts, we decided to require worker nodes that should build multi-platform images to pre-install QEMU.
+For Linux machines, this can be done by installing an open-source package called qemu-user-static.
+
+In conclusion, using this approach, the FLOps builder service can build multi-platform images.
+All other FLOps (static) images, including the builder service or project observer, are also available for linux/amd64 and linux/arm64.
+For example, all these images can be started on a Raspberry Pi 4, but these devices seem to lack sufficient resources to handle the FL training.
+An additional downside of multi-platform image builds comes with the slowness of emulation.
+
+Table \ref{table:sklearn_mnist_multi_platform_build_example} shows a simple example of FLOps' builder service's build times for different platforms.
+The build machine natively supports linux/amd64.
+Therefore, this build is much faster than the emulated arm one.
+Both rows show the build times when only a single platform is requested.
+The build times would be combined to support both platforms simultaneously.
+
+\begin{figure}[t]
+    \begin{changemargin}{0cm}{0cm}
+        \centering
+        \begin{tabular}{|c|c|c|c|c|c|c|}
+            \hline
+            \textbf{Builder Architecture} & \textbf{Target Platform} & \textbf{Full Build} & \textbf{Base Image} & \textbf{Actor Images} \\
+            \hline
+            linux/amd64 & linux/amd64 & 4min & 2min 30s & 1min 30s \\
+            \hline
+            linux/amd64 & linux/arm64 & 18min & 12min & 6min \\
+            \hline
+        \end{tabular}
+        \captionof{table}{Simple Scikit-learn Multi-Platform Build Times Example} 
+        \label{table:sklearn_mnist_multi_platform_build_example}
+    \end{changemargin}
+\end{figure}

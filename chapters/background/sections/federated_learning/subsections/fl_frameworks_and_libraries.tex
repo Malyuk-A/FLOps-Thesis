@@ -1,0 +1,38 @@
+\subsection{FL Frameworks \& Libraries}\label{subsection:fl_frameworks_and_libraries}
+
+\begin{figure}[b]
+    \input{tables/fl_framework_comparison_table.tex}
+\end{figure}
+
+This subsection examines the current landscape of available FL frameworks.
+The goal is to better comprehend why most researchers did not specify or use FL frameworks in the previous findings.
+This discussion will be brief because Saidani already analyzed and evaluated FL frameworks in great detail in his master's thesis \cite{thesis:tum_fl_framework_comparison} from 2023.
+He examined FL libraries, frameworks, and benchmarks.
+Many FL tools exist for specific niche use cases and architectures \cite{thesis:tum_fl_framework_comparison}.
+This finding contradicts the opinions of his questioned FL practitioners and experts.
+They expected FL libraries and frameworks to focus on basic FL features, such as communication, aggregator-learner orchestration, security, and data aggregation.
+Many libraries and frameworks, most of which were not production-ready, were still in an experimental research state \cite{thesis:tum_fl_framework_comparison}.
+
+To reduce complexity, he focused on the five most promising open-source frameworks.
+For a framework to be allegeable, it had to fulfill 2/3 of the following criteria.
+It needed more than one thousand starts and 350 forks on GitHub.
+The interviewed experts had to mention it.
+The framework had to support all major operation systems.
+Because FL is rapidly evolving, we updated his findings and expanded upon them.
+We included the number of releases (including patches) in 2024 so far and the number of open issues in the repository.
+
+Table \ref{table:updated_fl_framework_comparison} shows the updated FL Framework comparison (16.08.2024).
+These FL frameworks are in active development. 
+Only FedML has not been updated for several months now.
+
+Saidani's main original contribution was a novel FL benchmarking suite called FMLB (Federated Machine Learning Benchmark).
+Its goal was to evaluate and compare the mentioned FL frameworks efficiently.
+His previous analysis and summary of existing frameworks were sound and helpful.
+However, we are critical of his evaluation results, especially the poor performance of Flower.
+We tried to replicate his experiments, but his provided code \cite{tum_fl_framework_thesis_github} lacks instructions on how to set up this benchmark application.
+We simulated the experiments with the latest official flower version at the time and made sure to stick as closely as possible to the same experimental setup and configuration.
+Our findings show very different results.
+Flower manages to solve the experiment quickly and efficiently.
+Our results match the verdicts of other works comparing FL frameworks, such as \cite{comparative_analysis_of_fl_frameworks} or \cite{comprehensive_study_fl_frameworks_degree_project}.
+\cite{comparative_analysis_of_fl_frameworks} is the latest work that compares FL frameworks that we considered, and its verdict is that Flower outperforms all its competition.
+FLOps uses Flower as its FL framework of choice.

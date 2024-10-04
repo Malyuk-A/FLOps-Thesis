@@ -1,0 +1,94 @@
+\section{Current Status, Limitations \& Future Work}
+
+Table \ref{table:status_functional_reqs} depicts how well the current FLOps implementation fulfills its functional requirements.
+We count FR-1.3 and FR-2 as MVP implemented because FLOps supports different FL scenarios, such as classic and clustered HFL, as well as various project configurations.
+Additional FL strategies, algorithms, and configurations exist that should be analyzed and added to future FLOps versions to allow a broader range of FL capabilities.
+FLOps currently supports Scikit-learn, PyTorch, and TensorFlow.
+Other ML flavors can be added by extending the underlying minimal enum structure.
+We regard FR-6 as MVP implemented because enabling inference serving was not a primary focus point of FLOps.
+Inference serving is FLOps's last post-training step.
+Thus, we did not invest a lot of time into this feature.
+It should be thoroughly tested and investigated to be seen as fully realized.
+MLflow offers different ways of turning trained models into inference servers \cite{mlflow_inference_serving}.
+Comparing these variations and letting users decide how to create inference servers is a valid choice for future work.
+
+% https://aneescraftsmanship.com/circle-symbols%E2%97%8B%E2%97%8F%E2%97%8D%E2%97%97%E2%97%94%E2%97%99%E2%A6%BF-in-latex/
+\begin{itemize}
+    \item [\faCircleO] \textbf{Not Implemented}: FLOps does not meet the requirement in its current form. 
+	\item [\faDotCircleO] \textbf{Partially Implemented}: FLOps only partially meets the requirement.
+	\item [\faArrowCircleRight] \textbf{Implemented MVP}: FLOps fulfills the requirement in a minimal viable way.
+	\item [\faCircle] \textbf{Fully Implemented}: FLOps fully realizes the requirement.
+\end{itemize}
+
+\begin{figure}[p]
+	\input{tables/conclusion_functional_reqs_status.tex}
+	\input{tables/conclusion_nonfunctional_reqs_status.tex}	
+\end{figure}
+
+Table \ref{table:status_nonfunctional_reqs} shows the grade of fulfillment of nonfunctional requirements in the current FLOps version.
+FLOps only partially realizes NFR-2.2.2.
+During the development of FLOps, we had to introduce several minor changes and additions to Oakestra so that it could handle FLOps workflows.
+The FLOps project structure follows Oakestra's application and service structure, which differs from that of other orchestrators like Kubernetes.
+Due to the restricted time, we did not try to run FLOps via another orchestrator.
+Therefore, we need to find out how straightforward using FLOps with other orchestrators is.
+Nonetheless, FLOps communicates with Oakestra via decoupled APIs and SLAs.
+Replacing or extending these interaction points to other orchestrators should be straightforward.
+In addition, Jabok Kempter's work combining Oakestra and Kubernetes \cite{thesis:tum_jakob_kempter_kubernetes_oakestra} alludes that FLOps can run on Kubernetes as an Oakestra addon.
+
+We marked NFR-3.1 as MVP implemented and NFR-3.2 as partially implemented because FLOps can run on monolithic and small multi-cluster setups with varying FL actors.
+We have yet to try to run FLOps on a truly large scale, such as several hundred or thousand devices.
+Therefore, we cannot indefinitely confirm that It can handle large-scale deployments.
+Regarding availability, FLOps includes several mechanisms of communication, error and event handling.
+However, if FLOps services or applications are modified or deleted by an external non-FLOps source, current FLOps is incapable of reacting accordingly.
+We hope to change this once FLOps is connected to the new Oakestra event hooks \cite{thesis:tum_mahmoud} so it can respond to and receive these vital events and react accordingly.
+
+
+\subsubsection{Implementation}
+In addition to using existing libraries and frameworks, FLOps includes many custom components we implemented using various state-of-the-art tools and techniques from the ground up.
+During this work, we used many of these tools for the first time, with no prior experience or training in them.
+Thus, some aspects of the implementation might utilize these tools subparly.
+FLOps' codebase is a one-man project that lacks code reviews from others, especially domain/tool experts.
+To improve robustness and code quality, individuals with expertise in these domains should review the code and elevate it to follow the gold standards of these tools.
+
+\subsubsection{Image Building}
+FLOps uses a sophisticated image-building architecture and processes, yet evaluations show that this aspect takes up a significant portion of project run times and lead to large images.
+New experimental solutions should be explored to improve the build times further and shrink the final images.
+One way would be to replace the current Conda-Mamba solution with uv \cite{uv}.
+Other tools worth exploring to slim down images include \cite{slim,dragonfly,nydus}.
+
+\subsubsection{Security \& Privacy}
+Security and privacy are FL's foundational concerns.
+Our priority with FLOps was to create and verify its rudimentary architecture, components, and workflows.
+We did not focus on privacy and security concerns due to the lack of access to proper certificates and to accelerate FLOps' development.
+This includes using HTTP instead of HTTPS or not supporting FL security features such as secure aggregation.
+This aspect is one of the most important for future work.
+Notably, Flower \cite{flower_tls}, the image registry \cite{docs:cncf_distribution_registry}, and the local data management's Arrow Flight \cite{docs:arrow_flight} all have security features.
+FLOps can utilize these features by enabling and appropriately configuring them.
+
+\subsubsection{Federated Learning via FLOps}
+FLOps already enables classic and clustered HFL.
+Many other possible improvements should be considered for future work.
+Possible directions include exploring and adding FL native security and privacy mechanisms or extending the already available functionalities by adding more parameters and different algorithms.
+So far, FLOps has not focused on GPU workloads, which are supported by Flower and should thus already be able to run via FLOps.
+FLOps should be tried out with ML frameworks specifically targeted for resource-restricted edge and IoT devices.
+These experiments should be evaluated on edge devices such as Raspberry Pis and hybrid setups.
+
+One significant aspect that should be investigated is personalized FL.
+For classic PFL, the trained global model would be deployed on every learner, trained further for local use, and then used for inference serving on the learner nodes.
+The sidecar or multi-model PFL solution could look like this.
+The global model would be trained as is, but a personal model would also be trained concurrently and not shared or updated with other learners.
+Once the training is done, the local model can be turned into an inference server.
+Hybrids between both are also possible.
+One way to realize these in FLOps is to augment or extend the learner services so that they hold a local model, persist after training, and transform into inference servers, or that the FLOps manager replaces them via inference servers instead.
+Our reading contained multiple interesting PFL papers (\ref{subsection:fl_research}), so we think this direction is very promising and worth working on.
+
+\subsubsection{Complementary Components \& Integrations}
+To work with FLOps, users must clone its repository, do slight configurations, and launch its components.
+Its CLI could be further improved to automate even more aspects of FLOps and its orchestrator.
+Ideally, the CLI could install all the needed dependencies, repositories, and components of FLOps with a single command.
+This includes installing its orchestrator and launching its components to make working with these tools as easy and quick as possible.
+Realizing this goal is straightforward because the CLI already has many necessary functionalities that can be expanded and combined.
+FLOps should be appropriately integrated into Oakestra's new addon marketplace created by Mahmoud Elkodary \cite{thesis:tum_mahmoud}.
+In addition FLOps should use the new Oakestra hooks to react to events.
+Once this is realized, FLOps will be even more responsive and accessible for users.
+

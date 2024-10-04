@@ -1,0 +1,27 @@
+\subsection{Appropriate Data for FL}
+
+FL, especially cross-device FL, specializes in massive numbers of heterogeneous devices with diverse non-IID data.
+For FL, one can use conventional datasets, such as MNIST or CIFAR10.
+However, such homogeneous and IID data is not representative of data found on real devices.
+Many works in the field of FL specialize and compare how well they perform on non-IID data (\ref{subsection:fl_research}).
+For this reason, various datasets and benchmarks have been created explicitly for FL.
+One recurring prominent FL benchmarking tool is LEAF \cite{paper:leaf_fl_benchmark}.
+It does not solely specialize in FL but in more general federated settings.
+It includes several implementations and datasets.
+As mentioned in Table \ref{table:fl_research_table_2}, we had little success working with this benchmark.
+This finding is noteworthy because LEAF seems to be the primary and sole source for the FEMNIST dataset, which many FL papers mention and use for evaluation.
+
+FEMNIST seems to be one of the most popular dedicated FL benchmarking datasets.
+It is a federated version of the Extended MNIST (EMNIST \cite{emnist_dataset}) dataset.
+FEMNIST splits the EMNIST dataset into multiple classes or data partitions based on individual (digit/symbol) writers.
+Extended projects exist that wrap the access to FEMNIST via the high-speed HDF5 binary data format \cite{hdf5_femnist}.
+The FEMNIST dataset is a prominent example of many dedicated FL datasets and benchmarks.
+A detailed listing and comparison of other similar resources is available in \cite{thesis:tum_fl_framework_comparison}.
+
+FLOps requires a convenient way of accessing suitable data for development and testing purposes.
+Our experience trying out LEAF taught us that using these dedicated datasets can be challenging and error-prone.
+Instead of figuring out how to unify these different dedicated FL datasets and benchmarks, we use Flower Datasets \cite{flower:datasets}.
+We already discussed Flower Datasets briefly in \ref{subsection:flower}.
+The vital thing to know about this young project is that it uses and splits up Hugging Face datasets into non-IID data fragments.
+It enables users to turn conventional ML datasets into FL-optimized ones.
+Users can configure this approach freely.

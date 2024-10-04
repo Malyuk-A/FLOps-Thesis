@@ -1,0 +1,45 @@
+\subsection{Flower} \label{subsection:flower}
+
+Flower \cite{paper:flower} is a research-backed open-source FL framework.
+One major target in Flower's paper was to narrow the gap between research and production.
+It allows researchers to run high-performance FL simulations and rapidly transition to tangible production environments using the same tool.
+Another focal point of its paper was scale and parallelization.
+
+Flower is a sophisticated, feature-rich FL framework.
+Flower's first release (0.10.0) was published in November 2020, and its first major release (1.0.0) was published in 2022 \cite{fl_framework:flower}.
+Flower supports all major operating systems, containerization, and ML libraries.
+It aims to be easily customizable and extendable via a programming language and ML framework agnostic design.
+Flower strives to offer all popular FL features, such as support for different data types and distributions.
+Further features include pre-implemented popular FL algorithms and vertical and horizontal data splitting support.
+Flower supports traditional ML tasks, like regression or clustering, DNNs, LLMs, and security mechanisms, such as secure aggregation.
+It enables the use of FL via CPUs or GPUs.
+The default communication protocol is gRPC, which can be replaced.
+Flower supports various FL variants, including PFL, edge computing, cross-silo, and cross-device.
+It handles and implements core FL components but does not handle many other aspects, like deployment, orchestration, dependency management, or containerization.
+Flower offers a mature set of FL simulation techniques.
+
+Users can easily change and add functionality to the framework by interacting with flexible abstractions and interfaces.
+The heart of Flower is its strategy concept.
+The aggregator uses this strategy to manage the FL processes.
+A strategy contains all necessary configurations, such as the FL algorithm and the minimum number of learners required for training or evaluation.
+Users can pick from more than 30 existing strategies \cite{flower:strategies} or extend from basic strategies and develop their own behavior.
+It does not have native out-of-the-box support for model pruning, advanced security/privacy techniques, CFL, HFL, MLOps, or orchestration.
+Due to Flowers' flexible design, users can implement their custom features and strategies based on the available basic Flower components.
+
+It is straightforward to set up Flower and start working with it.
+Flower is directly available via Python's default package manager pip.
+One has to define the server/aggregator, strategy, and clients/learners.
+Users can implement the simplest case with a few dozen lines of Python code.
+The crucial part is to configure the strategy and clients properly.
+One needs to create a client class that extends from a Flower client and implement four essential methods that the framework will call during training.
+These methods include a getter and setter for the model parameters and one method each for training/fitting and evaluating the model.
+In conclusion, Flower provides a rapid and easy onboarding experience.
+
+Flower has a modern, user-friendly, growing ecosystem.
+A dedicated sub-project called Flower Datasets \cite{flower:datasets} is part of this ecosystem.
+This project is still in its infancy (v0.3.0).
+It allows users to pull HuggingFace \cite{hugging_face_homepage} datasets easily and split them into FL-optimized data fragments.
+Users can configure how to split this data up.
+Flower Datasets can turn standard non-federated homogeneous/IID datasets into challenging, federated, non-IID data, which is ideal for FL research and development.
+This ecosystem includes a well-structured and rich homepage \cite{flower:homepage}, an extensive set of tutorials, guides, example projects \cite{flower:examples}, and documentation \cite{flower:homepage_docs, flower_docs} that ranges from beginner-friendly to advanced.
+They have open monthly community events \cite{flower:monthly}, yearly summits \cite{flower:summit}, a blog \cite{flower:blog}, a discussion forum \cite{flower:forum}, a Slack space \cite{flower:slack}, and a YouTube channel \cite{flower:youtube}.

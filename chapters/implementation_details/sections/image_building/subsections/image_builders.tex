@@ -1,0 +1,43 @@
+\subsection{Image Builders} \label{subsection:image_builders}
+
+The most popular and widespread containerization tool is Docker.
+It is also preferred when building images.
+Usually, building images via Docker is straightforward.
+One creates a Dockerfile and runs Docker commands to build a new image on a host machine based on this file.
+
+FLOps requires a more complex approach to build images.
+Its image builder is a service running on a worker node that Oakestra orchestrates.
+This service is a containerd container.
+It is not possible to simply run docker in such an environment to build images.
+The critical issue here is that docker cannot be run trivially in another container due to restricted privileges and access to host system capabilities \cite{paper:dind}.
+A popular workaround, especially for CI/CD workloads, is called Docker in Docker (DinD) \cite{paper:dind}.
+Many CI/CD tools support DinD natively.
+One example includes GitLab's CI/CD.
+Setting up and using DinD manually on a host machine is non-trivial and error-prone.
+Getting docker to work inside managed Oakestra containers is even more challenging.
+One significant reason for these issues is that docker requires its daemon to run for building images.
+Nested Docker daemons are a complicated matter \cite{paper:dind} that can require significant adjustments to how the orchestrator coordinates containerization on worker nodes.
+For example, the orchestrator could require worker nodes to mount their docker sockets to the container, which would lead to further security risks.
+
+The only functionality that FLOps requires here is building images inside containers, not executing them from within.
+There exist various alternatives to Docker that specialize in building containerized images.
+Thanks to the coordinated efforts of the OCI \cite{open_container_initiative} and others, these tools all build compatible images.
+Alternative tools include kaniko, Podman \cite{docs:podman}, and Buildah \cite{buildah_homepage}.
+FLOps uses Buildah.
+
+Buildah is an open-source daemon-free tool that specializes in building OCI-compliant images.
+It can run on host machines or inside containers.
+It features many equivalent Docker commands and supports building images step-wise, programmatically, or via Dockerfiles.
+Red Hat released Buildah initially in 2017, and its first major version was released in 2018.
+Podman and Buildah are complementary tools that have some shared documentation and aspects.
+Great resources to find out more about Podman, Buildah, and their relationship are available here \cite{redhat_docs:podman,redhat_docs:buildah,buildah_vs_podman}.
+
+It was challenging to make container-internal image-building work for FLOps via Oakestra.
+This image build process is especially complicated because it performs heavy dependency resolutions and installations.
+We needed to add a new optional flag to Oakestra deployments that enabled to mount /dev/fuse.
+The FUSE userspace filesystem framework enables non-privileged and secure mounts \cite{docs:fuse_linux_kernel}.
+In addition, Buildah has to build its images with the chroot isolation flag enabled.
+As a result, FLOps uses a highly fine-tuned and optimized builder environment that enables it to build images inside containers of orchestrated worker nodes.
+
+Furthermore, we put a lot of thought and time into refining and polishing FLOps' docker files.
+They build the foundation for all FLOps components, from project services and management components to auxiliary containers.

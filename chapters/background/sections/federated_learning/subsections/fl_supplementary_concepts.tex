@@ -1,0 +1,53 @@
+\subsection{Supplementary FL Concepts}
+
+This subsection explores essential supplementary FL concepts to understand the field better.
+
+\subsubsection{FL compared to Distributed Learning}
+
+FL and Distributed Learning (DL) are two related disciplines.
+Instead of executing complex ML computations on a centralized resource-rich monolithic machine or data center, both techniques
+distribute this computational load among multiple more resource-constrained machines that train individually.
+These approaches increase convergence times and avoid needing expensive singular devices with sufficient resources.
+After distributively training models, a server aggregates a global model.
+
+The differences between both mechanisms are the following.
+FL can use highly heterogeneous non-IID training data.
+Quantity and distribution can vary significantly between learners.
+FL can handle this varied data without having access to explicit information about their properties before or during training.
+FL only utilizes the data that learners offer.
+FL can work with a fluctuating number of learners that only participate in a small fraction of training rounds.
+This dynamicity leads FL to handle various unique challenges, such as handling errors caused by crashed, failed, or disconnected learners during training.
+On the contrary, DL initializes with total centralized access and control to all data before distributing it among its fixed and predefined clients \cite{book:fl}.
+DL does not support FL's privacy concerns because it has complete oversight and control of all data.
+
+
+\subsubsection{FL Variety}
+FL is a diverse discipline with various possible applications and use cases.
+Most FL work focuses on end-user/edge/IoT devices.
+FL is not exclusive to these environments and can work in conventional cloud environments.
+As discussed in the first subsection, FL can train DNNs.
+FL can also apply to classic ML models, such as linear models (logistic regression, classification, and more) or decision trees for explainable classifications.
+FL also supports horizontal, vertical, and split learning.
+This work omits discussing these techniques to avoid bloat.
+More information about these and other methods is available in \cite{book:fl}.
+Plenty of FL optimizations exist for each ML variant, such as custom algorithms and strategies.
+
+Personalization can help if the global model is too general and does not satisfy a learner's individual needs.
+Different personalized FL (PFL) approaches exist.
+Some take the final trained global model and further train it on local data (fine-tuning).
+Other techniques train two local models concurrently.
+The first model gets shared and updated with the global parameters.
+The second one stays isolated and only gets influenced by local data.
+A mixture between the global and purely local model can be used for inference.
+PFL is a deep and growing subfield of FL \cite{book:fl,hpfl_over_massive_mobile_edge_computing_networks, paper:adaptive_exper_models_for_pfl}.
+
+\subsubsection{FL Security \& Privacy}
+The field of FL prioritizes security and privacy because protecting those was the key motivation for FL's creation.
+FL should use secure and authenticated communication channels to prevent messages from being intercepted, read, or impersonated by a man-in-the-middle adversary.
+One should ensure that learners and aggregators are the only actors with access to those messages and can decipher them.
+A variety of FL adversaries and threats exist.
+Fortunately, there exists a growing array of defenses against those threats.
+It is crucial to pick and combine these defenses wisely based on the use case and environment.
+Two prominent techniques to protect against threats are differential privacy and secure aggregation. \cite{book:fl}
+
+We omit further detailed discussions because FLOps does not focus on privacy or security.

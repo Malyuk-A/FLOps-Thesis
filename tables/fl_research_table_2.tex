@@ -1,0 +1,74 @@
+\begin{changemargin}{-2cm}{0cm} 
+    \begin{tabular}{|c||m{0.4\paperwidth}|m{0.4\paperwidth}|}
+        \hline
+            ID & Contributions & Limitations Future Work \\
+        \hline
+            \cite{paper:adaptive_exper_models_for_pfl}
+            &
+            Improved an existing PFL algorithm that used clustered models (but discarded all but one in the end).
+            A novel idea to improve performance by using these cluster models as experts in a MoE (Mixture of Experts) setup.
+            &
+            -
+        \\
+        \hline
+            \cite{paper:tackling_objective_inconsistency_problem_in_heterogeneous_fl}
+            &
+            Analysis of drift that occurs due to different learner speeds.
+            Novel ideas eliminating that drift.
+            &
+            This work does not consider hierarchical structures, clusters/tiers, or privacy/security.
+        \\
+        \hline
+            \cite{paper:efficient_privacy_preserving_ml_in_hierarchical_distributed_systems}
+            &
+            Efficiency improvements for privacy-preserving ML techniques for hierarchically distributed structures.
+            Different data partitions and distributions, such as vertical and non-IID, were considered.
+            &
+            Written in 2019.
+            Many other newer papers have investigated HFL security/privacy further.
+        \\
+        \hline
+            \cite{paper:leaf_fl_benchmark}
+            &
+            A benchmark for federated settings, especially FL, with implementations and datasets.
+            &
+            Outdated benchmark from 2019.
+            When we tried to use it, we encountered many errors and problems, such as broken dependencies, failing example code, and more.
+        \\
+        \hline
+            \cite{paper:deploying_fl_in_hierarchical_edge_architecture}
+            &
+            Proof-of-concept that demonstrates that FL can be deployed and used in hierarchical architectures that fulfill specific industry standards.
+            &
+            The findings and experiments are very basic.
+            Further topics such as diverse network conditions, heterogeneous data, and resources should be investigated.
+        \\
+        \hline
+            \cite{paper:hfl_with_momentum_acceleration_in_multi_tier_networks}
+            &
+            Accelerated and improved FL training and the aggregation algorithm via a hierarchical structure and ML momentum.
+            &
+            Security, privacy, and challenging network conditions were not considered.
+        \\
+        \hline
+            \cite{paper:scaling_fl_for_fine_tuning_llms}
+            &
+            Analysis of LLM behavior in FL when using different numbers of learners.
+            &
+            Due to its proof-of-concept nature, this work only features simple experiments that yield few new insights.
+        \\
+        \hline
+            \cite{paper:edge_fl_via_mqtt_and_oma_lightweight_m2m}
+            &
+            A novel approach to finding and sharing information between FL components and discovering learners.
+            This work uses MQTT with semantic URIs representing the clients' properties, including their resources.
+            &
+            It is a very short paper.
+            The experiments are only simulated.
+            This work's approach was not extensively compared to classic or novel techniques.
+        \\
+        \hline
+    \end{tabular}
+    \captionof{table}{FL Papers considered for FLOps - Part II} 
+    \label{table:fl_research_table_2}
+\end{changemargin}

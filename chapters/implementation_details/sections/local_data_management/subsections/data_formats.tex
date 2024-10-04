@@ -1,0 +1,63 @@
+\subsection{ML \& Big Data Formats}
+
+The field of Big Data and ML formats is vast and complex.
+It provides many insights into different optimization approaches.
+Great resources to find out more are available here \cite{influxdb_apache_stack,apache_arrow_flight_sql_2022,columnar_roadmap_parquet_and_arrow,apache_arrow_flight_intro}.
+The following are significant takeaways after investigating this domain.
+\vspace{5mm}
+\newline
+\textbf{Managing Big Data is a booming Field}\newline
+Storing and handling Big Data is a massively popular, expensive, and profitable business that regularly attracts hundred-million-dollar investments.
+This environment leads to healthy competition, solid standards, and bold advancements in the field.
+\vspace{5mm}
+\newline
+\textbf{Reuse}\newline
+Data management and optimizations are universally needed.
+These areas have several decades of solid research to back up best practices and avoid known pitfalls.
+Similarly to security, one should avoid reinventing and reimplementing foundational features from the ground up.
+Instead, it is recommended that existing open-source industry-favored solutions be reused.
+\vspace{5mm}
+\newline
+\textbf{(De)Serialization is a critical Bottleneck}\newline
+When each subsystem has its own internal memory format, significant amounts of CPU work get wasted on (de)serialization.
+The recommended way to avoid this is to stick to a uniform format.
+The more tools support such a uniform format, the easier and faster cooperation, communication, and transmission can be.
+\vspace{5mm}
+\newline
+\textbf{Big Data and ML Data should use Columnar Formats}\newline
+Usually, dataset features are split up into different columns.
+These features can be diverse and require different data types for storage.
+When storing and handling conventionally stored row-wise data, all these different data types and features complicate and slow down processing.
+Instead, if the data is stored and handled column-wise, advanced optimizations, and compressions can handle homogeneous features and their data type.
+As a result, the same data can be processed more compactly and faster.
+\vspace{5mm}
+\newline
+The sources above recommend the following open source state-of-the-art formats and technologies.
+All of them are from Apache.
+\vspace{5mm}
+\newline
+\textbf{Arrow}\newline
+Arrow is a language-agnostic columnar memory format.
+It is optimized for modern CPUs and GPUs.
+It supports zero-copy reads, which avoid serialization and accelerate data access.
+Arrow is especially popular for interoperability.
+This format should be used for data in memory. \cite{arrow_repo} 
+\vspace{5mm}
+\newline
+\textbf{Parquet}\newline
+Parquet is also a columnar file format.
+Its focus is on efficient data storage and retrieval.
+Its benefit over Arrow is that it needs less space due to its special compression and encoding.
+This format should be used to store data on disks. \cite{docs:parquet}
+\vspace{5mm}
+\newline
+\textbf{Arrow Flight}\newline
+Arrow Flight is a gRPC-based framework.
+It supports parallel data streams.
+When used with compatible data, it overcomes (de)serialization overheads and speeds up data transfer.
+Flight should be used to transport Apache formatted data over the network. \cite{docs:arrow_flight}
+\vspace{5mm}
+\newline
+The last subsection mentioned that FLOps uses Flower Datasets, which uses Hugging Face Datasets underneath.
+Hugging Face Datasets use Arrow \cite{docs:hugging_face_arrow}.
+Therefore, the findings in this subsection are directly applicable and relevant to FLOps.
